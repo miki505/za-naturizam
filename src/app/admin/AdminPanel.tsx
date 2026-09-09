@@ -40,17 +40,39 @@ interface RatingSubmission {
   created_at: string;
 }
 
+interface PhotoSubmission {
+  id: string;
+  user_id: string;
+  place_key: string;
+  image_url: string;
+  caption: string | null;
+  credit: string | null;
+  status: string;
+  created_at: string;
+}
+
+interface CommentSubmission {
+  id: string;
+  user_id: string;
+  place_key: string;
+  body: string;
+  status: string;
+  created_at: string;
+}
+
 export function AdminPanel() {
   const { dict, locale } = useLocale();
   const { user, loading, isAdmin } = useAuth();
   const [places, setPlaces] = useState<PlaceSubmission[]>([]);
   const [ratings, setRatings] = useState<RatingSubmission[]>([]);
+  const [photos, setPhotos] = useState<PhotoSubmission[]>([]);
+  const [comments, setComments] = useState<CommentSubmission[]>([]);
   const [busyId, setBusyId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const load = useCallback(async () => {
     const supabase = createClient();
-    const [p, r] = await Promise.all([
+    const [p, r, ph, c] = await Promise.all([
       supabase
         .from("place_submissions")
         .select("*")
@@ -61,11 +83,25 @@ export function AdminPanel() {
         .select("*")
         .eq("status", "pending")
         .order("created_at", { ascending: true }),
+      supabase
+        .from("place_photo_submissions")
+        .select("*")
+        .eq("status", "pending")
+        .order("created_at", { ascending: true }),
+      supabase
+        .from("place_comment_submissions")
+        .select("*")
+        .eq("status", "pending")
+        .order("created_at", { ascending: true }),
     ]);
     if (p.error) setError(p.error.message);
     else setPlaces((p.data as PlaceSubmission[]) ?? []);
     if (r.error) setError(r.error.message);
     else setRatings((r.data as RatingSubmission[]) ?? []);
+    if (ph.error) setError(ph.error.message);
+    else setPhotos((ph.data as PhotoSubmission[]) ?? []);
+    if (c.error) setError(c.error.message);
+    else setComments((c.data as CommentSubmission[]) ?? []);
   }, []);
 
   useEffect(() => {
@@ -191,6 +227,27 @@ export function AdminPanel() {
     setBusyId(null);
   };
 
+  const setSubmissionStatus = async (
+    table: "place_photo_submissions" | "place_comment_submissions",
+    id: string,
+    status: "approved" | "rejected",
+  ) => {
+    setBusyId(id);
+    setError(null);
+    const supabase = createClient();
+    const { error: err } = await supabase
+      .from(table)
+      .update({
+        status,
+        reviewed_at: new Date().toISOString(),
+        reviewed_by: user!.id,
+      })
+      .eq("id", id);
+    if (err) setError(err.message);
+    else await load();
+    setBusyId(null);
+  };
+
   if (loading) {
     return <p className="text-sm text-slate-500">{dict.auth.working}</p>;
   }
@@ -307,6 +364,119 @@ export function AdminPanel() {
                     type="button"
                     disabled={busyId === r.id}
                     onClick={() => void rejectRating(r.id)}
+                    className="rounded-full bg-rose-600 px-3 py-1.5 text-xs font-semibold text-white disabled:opacity-60"
+                  >
+                    {dict.admin.reject}
+                  </button>
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
+      </section>
+
+      <section className="space-y-3">
+        <h2 className="text-lg font-semibold text-sky-950">
+          {dict.admin.pendingPhotos} ({photos.length})
+        </h2>
+        {photos.length === 0 ? (
+          <p className="text-sm text-slate-500">{dict.admin.emptyPhotos}</p>
+        ) : (
+          <ul className="space-y-3">
+            {photos.map((ph) => (
+              <li
+                key={ph.id}
+                className="flex flex-wrap items-start justify-between gap-3 rounded-2xl border border-sky-100 bg-white/90 p-4 shadow-sm"
+              >
+                <div className="flex min-w-0 flex-1 gap-3">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={ph.image_url}
+                    alt=""
+                    className="h-20 w-28 shrink-0 rounded-lg object-cover"
+                  />
+                  <div className="min-w-0">
+                    <p className="font-semibold text-sky-950">{ph.place_key}</p>
+                    {ph.caption ? (
+                      <p className="mt-1 text-sm text-slate-700">{ph.caption}</p>
+                    ) : null}
+                    {ph.credit ? (
+                      <p className="mt-0.5 text-xs text-slate-400">{ph.credit}</p>
+                    ) : null}
+                    <a
+                      href={ph.image_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-1 inline-block truncate text-xs text-sky-700 underline"
+                    >
+                      {ph.image_url}
+                    </a>
+                    <p className="mt-1 text-xs text-slate-400">{ph.created_at}</p>
+                  </div>
+                </div>
+                <div className="flex gap-2">
+                  <button
+                    type="button"
+                    disabled={busyId === ph.id}
+                    onClick={() =>
+                      void setSubmissionStatus("place_photo_submissions", ph.id, "approved")
+                    }
+                    className="rounded-full bg-emerald-600 px-3 py-1.5 text-xs font-semibold text-white disabled:opacity-60"
+                  >
+                    {dict.admin.approve}
+                  </button>
+                  <button
+                    type="button"
+                    disabled={busyId === ph.id}
+                    onClick={() =>
+                      void setSubmissionStatus("place_photo_submissions", ph.id, "rejected")
+                    }
+                    className="rounded-full bg-rose-600 px-3 py-1.5 text-xs font-semibold text-white disabled:opacity-60"
+                  >
+                    {dict.admin.reject}
+                  </button>
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
+      </section>
+
+      <section className="space-y-3">
+        <h2 className="text-lg font-semibold text-sky-950">
+          {dict.admin.pendingComments} ({comments.length})
+        </h2>
+        {comments.length === 0 ? (
+          <p className="text-sm text-slate-500">{dict.admin.emptyComments}</p>
+        ) : (
+          <ul className="space-y-3">
+            {comments.map((c) => (
+              <li
+                key={c.id}
+                className="flex flex-wrap items-start justify-between gap-3 rounded-2xl border border-violet-100 bg-violet-50/50 p-4 shadow-sm"
+              >
+                <div className="min-w-0 flex-1">
+                  <p className="font-semibold text-violet-950">{c.place_key}</p>
+                  <p className="mt-2 whitespace-pre-wrap text-sm text-slate-700">{c.body}</p>
+                  <p className="mt-1 text-xs text-slate-400">{c.created_at}</p>
+                </div>
+                <div className="flex gap-2">
+                  <button
+                    type="button"
+                    disabled={busyId === c.id}
+                    onClick={() =>
+                      void setSubmissionStatus("place_comment_submissions", c.id, "approved")
+                    }
+                    className="rounded-full bg-emerald-600 px-3 py-1.5 text-xs font-semibold text-white disabled:opacity-60"
+                  >
+                    {dict.admin.approve}
+                  </button>
+                  <button
+                    type="button"
+                    disabled={busyId === c.id}
+                    onClick={() =>
+                      void setSubmissionStatus("place_comment_submissions", c.id, "rejected")
+                    }
                     className="rounded-full bg-rose-600 px-3 py-1.5 text-xs font-semibold text-white disabled:opacity-60"
                   >
                     {dict.admin.reject}

@@ -2,7 +2,10 @@
 
 import type { Place } from "@/types";
 import { useLocale } from "@/components/LocaleProvider";
+import { PlaceComments } from "@/components/PlaceComments";
+import { PlacePhotos } from "@/components/PlacePhotos";
 import { StarRating } from "@/components/StarRating";
+import { placeKeyFor } from "@/lib/placeKey";
 
 export function PlaceDetailClient({ place, mapHref }: { place: Place; mapHref: string }) {
   const { locale, dict } = useLocale();
@@ -12,6 +15,7 @@ export function PlaceDetailClient({ place, mapHref }: { place: Place; mapHref: s
   const amenities = locale === "hr" ? place.amenitiesHr : place.amenities;
   const featuredLabel =
     place.featuredLabel === "Partner" ? dict.featured.partnerBadge : dict.featured.badge;
+  const placeKey = placeKeyFor(place);
 
   return (
     <div className="space-y-8">
@@ -143,6 +147,9 @@ export function PlaceDetailClient({ place, mapHref }: { place: Place; mapHref: s
           ))}
         </ul>
       </section>
+
+      <PlacePhotos placeKey={placeKey} />
+      <PlaceComments placeKey={placeKey} />
     </div>
   );
 }
