@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useMemo, useState } from "react";
 import { filterPlaces } from "@/lib/places";
 import { PlaceCard } from "./PlaceCard";
@@ -31,17 +32,29 @@ export function PlacesDirectory() {
   );
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-7">
       <PlaceFilters value={filters} onChange={setFilters} />
-      <p className="text-sm text-slate-500">
-        {results.length} {dict.places.results}
-      </p>
-      {results.length === 0 ? (
-        <p className="rounded-2xl border border-dashed border-sky-200 bg-sky-50/50 p-8 text-center text-slate-600">
-          {dict.places.noResults}
+      <div className="flex items-center justify-between gap-3">
+        <p className="text-sm font-medium text-slate-600">
+          <span className="font-semibold text-sky-900">{results.length}</span>{" "}
+          {dict.places.results}
         </p>
+      </div>
+      {results.length === 0 ? (
+        <div className="rounded-[1.5rem] border border-dashed border-sky-200/90 bg-gradient-to-b from-white/90 to-sky-50/50 px-6 py-14 text-center shadow-sm">
+          <p className="text-base font-semibold text-sky-950">{dict.places.noResults}</p>
+          <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-slate-500">
+            {dict.places.emptyHint}
+          </p>
+          <Link
+            href="/assistant"
+            className="mt-5 inline-flex rounded-full bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white shadow-md shadow-sky-200/70 transition hover:bg-sky-700"
+          >
+            {dict.nav.assistant} →
+          </Link>
+        </div>
       ) : (
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {results.map((place) => (
             <PlaceCard key={place.id} place={place} />
           ))}

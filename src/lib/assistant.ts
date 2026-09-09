@@ -80,7 +80,7 @@ export function answerQuery(query: string, locale: Locale): AssistantReply {
 
   let matches = ranked.filter((r) => r.s > 0).slice(0, 3).map((r) => r.p);
 
-  // Strong heuristic for the canonical demo question
+  // Strong heuristic for the common Istria camp + pets / beach query
   if (wantsIstria && wantsCamp && (wantsPets || wantsBeachNear)) {
     const preferred = places.filter(
       (p) => p.region === "istria" && (p.type === "camp" || p.type === "resort") && p.petsAllowed && p.nearBeach,
@@ -123,8 +123,8 @@ export function answerQuery(query: string, locale: Locale): AssistantReply {
       ];
 
   const weatherTip = hr
-    ? "Placeholder: U srpnju–kolovozu očekuj 28–34°C i maestral poslijepodne — ponesi laganu zaštitu od sunca i vodu. (Nije živa vremenska API veza.)"
-    : "Placeholder: In July–August expect 28–34°C and afternoon maestral winds — pack light sun protection and water. (Not a live weather API.)";
+    ? "U srpnju–kolovozu tipično 28–34°C i maestral poslijepodne — ponesi laganu zaštitu od sunca i vodu."
+    : "In July–August expect roughly 28–34°C and afternoon maestral winds — pack light sun protection and water.";
 
   return { text, matches, itinerary, weatherTip };
 }

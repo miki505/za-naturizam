@@ -70,37 +70,46 @@ export function ChatAssistant() {
   }
 
   return (
-    <div className="mx-auto flex w-full max-w-3xl flex-col gap-4">
-      <div className="rounded-2xl border border-sky-100 bg-white p-3 shadow-sm">
-        <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">
-          {dict.assistant.examples}
-        </p>
-        <div className="flex flex-col gap-2">
-          {examples.map((ex) => (
-            <button
-              key={ex}
-              type="button"
-              onClick={() => ask(ex)}
-              className="rounded-xl border border-sky-50 bg-sky-50/60 px-3 py-2 text-left text-sm text-sky-900 transition hover:bg-sky-100"
-            >
-              {ex}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      <div className="flex min-h-[320px] flex-col gap-3 rounded-2xl border border-sky-100 bg-gradient-to-b from-white to-sky-50/40 p-4 shadow-sm">
-        {messages.length === 0 && (
-          <p className="m-auto max-w-sm text-center text-sm text-slate-500">
-            {dict.assistant.subtitle}
+    <div className="mx-auto flex w-full max-w-3xl flex-col gap-5">
+      {messages.length === 0 && (
+        <div className="rounded-2xl border border-sky-100/90 bg-white/90 p-4 shadow-sm sm:p-5">
+          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.12em] text-sky-700/80">
+            {dict.assistant.examples}
           </p>
+          <div className="flex flex-wrap gap-2">
+            {examples.map((ex) => (
+              <button
+                key={ex}
+                type="button"
+                onClick={() => ask(ex)}
+                className="rounded-full border border-sky-100 bg-sky-50/70 px-3.5 py-2 text-left text-sm text-sky-900 shadow-sm transition hover:-translate-y-0.5 hover:border-sky-200 hover:bg-sky-100/80 hover:shadow"
+              >
+                {ex}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <div className="flex min-h-[340px] flex-col gap-4 rounded-[1.5rem] border border-sky-100/90 bg-gradient-to-b from-white via-white to-sky-50/50 p-4 shadow-sm sm:p-5">
+        {messages.length === 0 && (
+          <div className="m-auto max-w-sm space-y-2 px-2 py-10 text-center">
+            <div
+              aria-hidden
+              className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-sky-500 to-cyan-400 text-lg text-white shadow-md shadow-sky-200/70"
+            >
+              ✦
+            </div>
+            <p className="text-base font-semibold text-sky-950">{dict.assistant.emptyTitle}</p>
+            <p className="text-sm leading-relaxed text-slate-500">{dict.assistant.emptyHint}</p>
+          </div>
         )}
         {messages.map((msg) => {
           if (msg.role === "user") {
             return (
               <div
                 key={msg.id}
-                className="ml-auto max-w-[85%] rounded-2xl rounded-br-md bg-sky-600 px-4 py-2 text-sm text-white"
+                className="ml-auto max-w-[85%] rounded-2xl rounded-br-md bg-gradient-to-br from-sky-600 to-sky-500 px-4 py-2.5 text-sm leading-relaxed text-white shadow-md shadow-sky-200/60"
               >
                 {msg.content}
               </div>
@@ -114,31 +123,41 @@ export function ChatAssistant() {
           }
           return (
             <div key={msg.id} className="mr-auto w-full max-w-[95%] space-y-3">
-              <div className="whitespace-pre-wrap rounded-2xl rounded-bl-md border border-sky-100 bg-white px-4 py-3 text-sm leading-relaxed text-slate-700">
+              <div className="whitespace-pre-wrap rounded-2xl rounded-bl-md border border-sky-100 bg-white px-4 py-3.5 text-sm leading-relaxed text-slate-700 shadow-sm">
                 {parsed
-                  ? parsed.text.split("\n").map((line, idx) => (
-                      <p
-                        key={idx}
-                        className={
-                          line.startsWith("### ") ? "mt-2 font-semibold text-sky-900" : undefined
-                        }
-                      >
-                        {renderMarkdownBold(line.replace(/^### /, ""))}
-                      </p>
-                    ))
+                  ? parsed.text.split("\n").map((line, idx) => {
+                      const isHeading = line.startsWith("### ");
+                      const isEmpty = line.trim() === "";
+                      if (isEmpty) return <div key={idx} className="h-2" />;
+                      return (
+                        <p
+                          key={idx}
+                          className={
+                            isHeading
+                              ? "mt-3 mb-1 text-xs font-semibold uppercase tracking-[0.1em] text-amber-700/90"
+                              : undefined
+                          }
+                        >
+                          {renderMarkdownBold(line.replace(/^### /, ""))}
+                        </p>
+                      );
+                    })
                   : msg.content}
               </div>
               {parsed?.matches?.length ? (
-                <div className="space-y-2">
-                  <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                <div className="space-y-3 rounded-2xl border border-amber-100/90 bg-gradient-to-br from-amber-50/80 to-orange-50/40 p-4 shadow-sm">
+                  <p className="text-xs font-semibold uppercase tracking-[0.12em] text-amber-800/80">
                     {dict.assistant.bookCtas}
                   </p>
-                  <div className="grid gap-2 sm:grid-cols-2">
+                  <div className="grid gap-3 sm:grid-cols-2">
                     {parsed.matches.map((place) => (
-                      <div key={place.id} className="space-y-2">
+                      <div
+                        key={place.id}
+                        className="space-y-2 rounded-xl border border-white/80 bg-white/90 p-3 shadow-sm"
+                      >
                         <Link
                           href={`/places/${place.slug}`}
-                          className="block text-sm font-medium text-sky-800 hover:underline"
+                          className="block text-sm font-semibold text-sky-900 transition hover:text-sky-700"
                         >
                           {locale === "hr" ? place.nameHr : place.name} →
                         </Link>
@@ -151,11 +170,35 @@ export function ChatAssistant() {
             </div>
           );
         })}
-        {busy && <p className="text-sm italic text-slate-500">{dict.assistant.thinking}</p>}
+        {busy && (
+          <div className="flex items-center gap-2 text-sm text-slate-500">
+            <span
+              className="inline-flex h-2 w-2 animate-pulse rounded-full bg-sky-400"
+              aria-hidden
+            />
+            <span className="italic">{dict.assistant.thinking}</span>
+          </div>
+        )}
       </div>
 
+      {messages.length > 0 && (
+        <div className="flex flex-wrap gap-2">
+          {examples.slice(0, 2).map((ex) => (
+            <button
+              key={ex}
+              type="button"
+              onClick={() => ask(ex)}
+              disabled={busy}
+              className="rounded-full border border-sky-100 bg-white/80 px-3 py-1.5 text-xs font-medium text-sky-800 transition hover:bg-sky-50 disabled:opacity-50"
+            >
+              {ex}
+            </button>
+          ))}
+        </div>
+      )}
+
       <form
-        className="flex gap-2"
+        className="flex gap-2 rounded-full border border-sky-100 bg-white/95 p-1.5 shadow-md shadow-sky-100/50"
         onSubmit={(e) => {
           e.preventDefault();
           ask(input);
@@ -165,12 +208,12 @@ export function ChatAssistant() {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder={dict.assistant.placeholder}
-          className="flex-1 rounded-full border border-sky-200 bg-white px-4 py-3 text-sm shadow-sm focus:border-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-100"
+          className="min-w-0 flex-1 rounded-full border-0 bg-transparent px-4 py-2.5 text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-0"
         />
         <button
           type="submit"
-          disabled={busy}
-          className="rounded-full bg-sky-600 px-5 py-3 text-sm font-semibold text-white shadow transition hover:bg-sky-700 disabled:opacity-60"
+          disabled={busy || !input.trim()}
+          className="shrink-0 rounded-full bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-sky-700 disabled:cursor-not-allowed disabled:opacity-50"
         >
           {dict.assistant.send}
         </button>

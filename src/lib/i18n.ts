@@ -54,9 +54,12 @@ const dictionaries = {
       cta: "Otvori AI asistenta",
     },
     places: {
-      title: "Direktorij mjesta",
-      subtitle: "Pretraži i filtriraj naturistička i clothing-optional mjesta u Hrvatskoj.",
+      eyebrow: "Direktorij",
+      title: "Mjesta uz Jadran",
+      subtitle:
+        "Provjerene naturističke i clothing-optional plaže, kampovi i resorti — filtriraj po regiji, tipu i sadržajima.",
       search: "Pretraži po imenu ili lokaciji…",
+      filtersLabel: "Filteri",
       region: "Regija",
       type: "Tip",
       dressCode: "Dress code",
@@ -65,6 +68,7 @@ const dictionaries = {
       all: "Sve",
       results: "rezultata",
       noResults: "Nema mjesta za odabrane filtere.",
+      emptyHint: "Pokušaj proširiti pretragu ili maknuti neki filter — ili pitaj AI asistenta.",
       rating: "Ocjena",
       viewDetails: "Detalji",
       regions: {
@@ -84,7 +88,7 @@ const dictionaries = {
       },
     },
     detail: {
-      guide: "Vodič",
+      guide: "Lokalni vodič",
       amenities: "Sadržaji",
       map: "Otvori na karti",
       book: "Rezerviraj / Book",
@@ -95,13 +99,17 @@ const dictionaries = {
       nearBeach: "Blizu plaže",
     },
     assistant: {
+      eyebrow: "Putni vodič",
       title: "AI Travel Asistent",
       subtitle:
-        "Pitaj za preporuke kampa, plaže ili mini-itinerera. Odgovori su lokalni i temeljeni na našem direktoriju.",
+        "Opisi što tražiš — regiju, tip mjesta, ljubimce — i dobij jasne preporuke, mini-itinerer i savjete za putovanje.",
+      quietNote: "Odgovori su utemeljeni na našem direktoriju mjesta.",
       placeholder: "npr. Najbolji naturistički kamp u Istri blizu plaže koji prima kućne ljubimce",
       send: "Pošalji",
       thinking: "Tražim preporuke…",
-      examples: "Primjeri pitanja",
+      examples: "Isprobaj pitanje",
+      emptyTitle: "Kamo želiš?",
+      emptyHint: "Odaberi primjer ili napiši svoje pitanje — preporuke stižu u trenutku.",
       weatherTip: "Vremenski savjet",
       itinerary: "Mini itinerer",
       bookCtas: "Rezervacije",
@@ -187,9 +195,12 @@ const dictionaries = {
       cta: "Open AI assistant",
     },
     places: {
-      title: "Place directory",
-      subtitle: "Search and filter naturist and clothing-optional places in Croatia.",
+      eyebrow: "Directory",
+      title: "Places along the Adriatic",
+      subtitle:
+        "Curated naturist and clothing-optional beaches, camps and resorts — filter by region, type and amenities.",
       search: "Search by name or location…",
+      filtersLabel: "Filters",
       region: "Region",
       type: "Type",
       dressCode: "Dress code",
@@ -198,6 +209,7 @@ const dictionaries = {
       all: "All",
       results: "results",
       noResults: "No places match these filters.",
+      emptyHint: "Try widening your search or clearing a filter — or ask the AI assistant.",
       rating: "Rating",
       viewDetails: "Details",
       regions: {
@@ -217,7 +229,7 @@ const dictionaries = {
       },
     },
     detail: {
-      guide: "Guide",
+      guide: "Local guide",
       amenities: "Amenities",
       map: "Open in maps",
       book: "Book / Reserve",
@@ -228,13 +240,17 @@ const dictionaries = {
       nearBeach: "Near beach",
     },
     assistant: {
+      eyebrow: "Travel guide",
       title: "AI Travel Assistant",
       subtitle:
-        "Ask for camp, beach or mini-itinerary tips. Answers are local and grounded in our place directory.",
+        "Describe what you need — region, place type, pets — and get clear recommendations, a mini-itinerary and trip tips.",
+      quietNote: "Answers are grounded in our place directory.",
       placeholder: "e.g. Best naturist camp in Istria near the beach that allows pets",
       send: "Send",
       thinking: "Finding recommendations…",
-      examples: "Example questions",
+      examples: "Try a question",
+      emptyTitle: "Where to next?",
+      emptyHint: "Pick an example or type your own — recommendations arrive in a moment.",
       weatherTip: "Weather tip",
       itinerary: "Mini itinerary",
       bookCtas: "Booking",
