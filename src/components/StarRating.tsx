@@ -1,7 +1,14 @@
 "use client";
 
+import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
-import { displayRating, readRatings, setUserRating, writeRatings } from "@/lib/ratings";
+import { useAuth } from "@/components/auth/AuthProvider";
+import {
+  displayRating,
+  fetchMyPendingOrApprovedRating,
+  fetchPlaceRatingStats,
+  submitPendingRating,
+} from "@/lib/ratings";
 import type { PlaceRatingEntry } from "@/types";
 import { useLocale } from "./LocaleProvider";
 
@@ -14,25 +21,58 @@ export function StarRating({
   compact?: boolean;
 }) {
   const { dict } = useLocale();
+  const { user, loading: authLoading } = useAuth();
   const [entry, setEntry] = useState<PlaceRatingEntry | undefined>(undefined);
+  const [userRating, setUserRating] = useState<number | undefined>(undefined);
+  const [pending, setPending] = useState(false);
   const [hover, setHover] = useState<number | null>(null);
   const [ready, setReady] = useState(false);
+  const [message, setMessage] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    setEntry(readRatings()[placeId]);
-    setReady(true);
-  }, [placeId]);
+    let cancelled = false;
+    (async () => {
+      const stats = await fetchPlaceRatingStats(placeId);
+      if (!cancelled) setEntry(stats);
+      if (user) {
+        const mine = await fetchMyPendingOrApprovedRating(placeId, user.id);
+        if (!cancelled && mine) {
+          setUserRating(mine.rating);
+          setPending(mine.status === "pending");
+        }
+      } else if (!cancelled) {
+        setUserRating(undefined);
+        setPending(false);
+      }
+      if (!cancelled) setReady(true);
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [placeId, user]);
 
   const shown = displayRating(seedRating, entry);
-  const active = hover ?? entry?.userRating ?? 0;
+  const active = hover ?? userRating ?? 0;
 
   const onRate = useCallback(
-    (stars: number) => {
-      const next = setUserRating(readRatings(), placeId, stars);
-      writeRatings(next);
-      setEntry(next[placeId]);
+    async (stars: number) => {
+      setError(null);
+      setMessage(null);
+      if (!user) {
+        setError(dict.auth.loginRequired);
+        return;
+      }
+      const { error: err, rating } = await submitPendingRating(placeId, user.id, stars);
+      if (err) {
+        setError(err.message);
+        return;
+      }
+      setUserRating(rating);
+      setPending(true);
+      setMessage(dict.ratings.pendingApproval);
     },
-    [placeId],
+    [placeId, user, dict],
   );
 
   return (
@@ -50,13 +90,24 @@ export function StarRating({
                 : dict.ratings.seedOnly}
             </span>
           </p>
-          {ready && entry?.userRating ? (
+          {ready && userRating ? (
             <p className="mt-1 text-xs text-amber-800/80">
-              {dict.ratings.yourRating}: {entry.userRating}/5
+              {dict.ratings.yourRating}: {userRating}/5
+              {pending ? ` — ${dict.ratings.pendingApproval}` : ""}
             </p>
           ) : (
             <p className="mt-1 text-xs text-amber-800/70">{dict.ratings.rateHint}</p>
           )}
+          {!authLoading && !user ? (
+            <p className="mt-2 text-xs text-amber-900/80">
+              <Link href="/login" className="font-semibold underline">
+                {dict.auth.login}
+              </Link>{" "}
+              {dict.ratings.loginToRate}
+            </p>
+          ) : null}
+          {message ? <p className="mt-2 text-xs font-medium text-emerald-800">{message}</p> : null}
+          {error ? <p className="mt-2 text-xs font-medium text-rose-700">{error}</p> : null}
         </div>
         <div
           className="flex gap-1"
@@ -69,11 +120,11 @@ export function StarRating({
               key={n}
               type="button"
               role="radio"
-              aria-checked={entry?.userRating === n}
+              aria-checked={userRating === n}
               aria-label={`${n}`}
               onMouseEnter={() => setHover(n)}
               onFocus={() => setHover(n)}
-              onClick={() => onRate(n)}
+              onClick={() => void onRate(n)}
               className={`text-2xl transition ${
                 n <= active ? "text-amber-500" : "text-amber-200 hover:text-amber-400"
               }`}
@@ -97,12 +148,13 @@ export function CompactRatingBadge({
   const [entry, setEntry] = useState<PlaceRatingEntry | undefined>(undefined);
 
   useEffect(() => {
-    setEntry(readRatings()[placeId]);
-    const onStorage = (e: StorageEvent) => {
-      if (e.key === "zn-ratings") setEntry(readRatings()[placeId]);
+    let cancelled = false;
+    void fetchPlaceRatingStats(placeId).then((stats) => {
+      if (!cancelled) setEntry(stats);
+    });
+    return () => {
+      cancelled = true;
     };
-    window.addEventListener("storage", onStorage);
-    return () => window.removeEventListener("storage", onStorage);
   }, [placeId]);
 
   const shown = displayRating(seedRating, entry);

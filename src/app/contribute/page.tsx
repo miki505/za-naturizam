@@ -4,7 +4,7 @@ import { ContributeHeader } from "./ContributeHeader";
 
 export const metadata: Metadata = {
   title: "Dodaj mjesto / Contribute",
-  description: "Add a naturist or clothing-optional beach or camp to the Za Naturizam directory (stored in this browser).",
+  description: "Submit a naturist or clothing-optional beach or camp for admin review (Supabase).",
 };
 
 export default function ContributePage() {

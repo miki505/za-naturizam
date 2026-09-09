@@ -1,20 +1,28 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { useState, type FormEvent } from "react";
+import { useAuth } from "@/components/auth/AuthProvider";
 import { useLocale } from "@/components/LocaleProvider";
-import { addUserPlace } from "@/lib/userPlaces";
+import { createClient } from "@/lib/supabase/client";
 import type { DressCode, PlaceType, Region } from "@/types";
 
 export function ContributeForm() {
   const { dict, locale } = useLocale();
-  const router = useRouter();
+  const { user, loading } = useAuth();
   const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError(null);
+    setSuccess(null);
+    if (!user) {
+      setError(dict.auth.loginRequired);
+      return;
+    }
+
     const fd = new FormData(e.currentTarget);
     const nameHr = String(fd.get("nameHr") || "").trim();
     const region = String(fd.get("region") || "") as Region;
@@ -29,43 +37,41 @@ export function ContributeForm() {
 
     const latRaw = String(fd.get("lat") || "").trim();
     const lngRaw = String(fd.get("lng") || "").trim();
-    const lat = latRaw ? Number(latRaw) : undefined;
-    const lng = lngRaw ? Number(lngRaw) : undefined;
+    const lat = latRaw ? Number(latRaw) : null;
+    const lng = lngRaw ? Number(lngRaw) : null;
     if ((latRaw && Number.isNaN(lat)) || (lngRaw && Number.isNaN(lng))) {
       setError(dict.contribute.coordsInvalid);
       return;
     }
 
-    const amenitiesRaw = String(fd.get("amenities") || "").trim();
-    const amenities = amenitiesRaw
-      ? amenitiesRaw.split(",").map((s) => s.trim()).filter(Boolean)
-      : undefined;
-
     setSaving(true);
     try {
-      const place = addUserPlace({
-        nameHr,
-        name: String(fd.get("name") || "").trim() || undefined,
+      const supabase = createClient();
+      const { error: insertError } = await supabase.from("place_submissions").insert({
+        user_id: user.id,
+        status: "pending",
+        name_hr: nameHr,
+        name_en: String(fd.get("name") || "").trim() || null,
         region,
         type: String(fd.get("type") || "beach") as PlaceType,
-        dressCode: String(fd.get("dressCode") || "naturist") as DressCode,
-        petsAllowed: fd.get("pets") === "on",
-        nearBeach: fd.get("nearBeach") === "on",
+        dress_code: String(fd.get("dressCode") || "naturist") as DressCode,
+        pets_allowed: fd.get("pets") === "on",
+        near_beach: fd.get("nearBeach") === "on",
         location,
-        locationHr: String(fd.get("locationHr") || "").trim() || undefined,
+        location_hr: String(fd.get("locationHr") || "").trim() || null,
         lat,
         lng,
-        shortDescriptionHr,
-        shortDescription: String(fd.get("shortDescription") || "").trim() || undefined,
-        amenities,
-        amenitiesHr: amenities,
-        imageUrl: imageUrl || "",
-        imageCredit: String(fd.get("imageCredit") || "").trim() || undefined,
-        officialUrl: String(fd.get("officialUrl") || "").trim() || undefined,
+        short_description_hr: shortDescriptionHr,
+        short_description_en: String(fd.get("shortDescription") || "").trim() || null,
+        image_url: imageUrl || null,
+        official_url: String(fd.get("officialUrl") || "").trim() || null,
       });
-      router.push(`/places/community/${place.id}`);
-    } catch {
-      setError(dict.contribute.saveError);
+      if (insertError) throw insertError;
+      setSuccess(dict.contribute.pendingOk);
+      e.currentTarget.reset();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : dict.contribute.saveError);
+    } finally {
       setSaving(false);
     }
   };
@@ -73,6 +79,25 @@ export function ContributeForm() {
   const input =
     "mt-1 w-full rounded-xl border border-sky-100 bg-white px-3 py-2.5 text-sm text-slate-800 shadow-sm outline-none ring-sky-300 transition focus:ring-2";
   const label = "block text-sm font-medium text-sky-950";
+
+  if (loading) {
+    return <p className="text-sm text-slate-500">{dict.auth.working}</p>;
+  }
+
+  if (!user) {
+    return (
+      <div className="rounded-2xl border border-violet-100 bg-violet-50/70 p-6 text-center shadow-sm">
+        <p className="font-semibold text-violet-950">{dict.auth.loginRequired}</p>
+        <p className="mt-2 text-sm text-violet-900/80">{dict.contribute.loginHint}</p>
+        <Link
+          href="/login?next=/contribute"
+          className="mt-5 inline-flex rounded-full bg-violet-600 px-5 py-2.5 text-sm font-semibold text-white shadow-md"
+        >
+          {dict.auth.signIn}
+        </Link>
+      </div>
+    );
+  }
 
   return (
     <form onSubmit={onSubmit} className="space-y-5 rounded-2xl border border-sky-100 bg-white/90 p-5 shadow-sm sm:p-7">
@@ -165,6 +190,7 @@ export function ContributeForm() {
         {dict.contribute.amenities}
         <input name="amenities" className={input} placeholder={dict.contribute.amenitiesHint} />
       </label>
+      <p className="text-xs text-slate-500">{dict.contribute.amenitiesNote}</p>
 
       <label className={label}>
         {dict.contribute.imageUrl}
@@ -188,6 +214,7 @@ export function ContributeForm() {
       </label>
 
       {error ? <p className="text-sm font-medium text-rose-700">{error}</p> : null}
+      {success ? <p className="text-sm font-medium text-emerald-700">{success}</p> : null}
 
       <button
         type="submit"

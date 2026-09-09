@@ -6,6 +6,7 @@ import { AffiliateCTA } from "@/components/AffiliateCTA";
 import { PlaceDetailClient } from "@/app/places/[slug]/PlaceDetailClient";
 import { PlaceImage } from "@/components/PlaceImage";
 import { useLocale } from "@/components/LocaleProvider";
+import { fetchCommunityPlaceById } from "@/lib/communityPlaces";
 import { mapsUrl } from "@/lib/places";
 import { getUserPlaceById } from "@/lib/userPlaces";
 import type { Place } from "@/types";
@@ -13,9 +14,24 @@ import type { Place } from "@/types";
 export function CommunityPlaceClient({ id }: { id: string }) {
   const { dict } = useLocale();
   const [place, setPlace] = useState<Place | null | undefined>(undefined);
+  const [fromSupabase, setFromSupabase] = useState(false);
 
   useEffect(() => {
-    setPlace(getUserPlaceById(id) ?? null);
+    let cancelled = false;
+    (async () => {
+      const remote = await fetchCommunityPlaceById(id);
+      if (cancelled) return;
+      if (remote) {
+        setPlace(remote);
+        setFromSupabase(true);
+        return;
+      }
+      setPlace(getUserPlaceById(id) ?? null);
+      setFromSupabase(false);
+    })();
+    return () => {
+      cancelled = true;
+    };
   }, [id]);
 
   if (place === undefined) {
@@ -77,7 +93,9 @@ export function CommunityPlaceClient({ id }: { id: string }) {
           {place.imageCredit && (
             <p className="mt-3 text-xs leading-relaxed text-slate-400">{place.imageCredit}</p>
           )}
-          <p className="mt-3 text-xs text-violet-700">{dict.contribute.localOnly}</p>
+          <p className="mt-3 text-xs text-violet-700">
+            {fromSupabase ? dict.contribute.moderatedNote : dict.contribute.localOnly}
+          </p>
         </div>
       </div>
     </div>

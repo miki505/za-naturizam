@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
+import { fetchCommunityPlaces } from "@/lib/communityPlaces";
 import { filterPlaces } from "@/lib/places";
 import { readUserPlaces } from "@/lib/userPlaces";
 import type { Place } from "@/types";
@@ -11,7 +12,7 @@ import { useLocale } from "./LocaleProvider";
 
 export function PlacesDirectory() {
   const { dict } = useLocale();
-  const [userPlaces, setUserPlaces] = useState<Place[]>([]);
+  const [extraPlaces, setExtraPlaces] = useState<Place[]>([]);
   const [filters, setFilters] = useState<FilterState>({
     q: "",
     region: "all",
@@ -22,12 +23,19 @@ export function PlacesDirectory() {
   });
 
   useEffect(() => {
-    setUserPlaces(readUserPlaces());
-    const onStorage = (e: StorageEvent) => {
-      if (e.key === "zn-user-places") setUserPlaces(readUserPlaces());
+    let cancelled = false;
+    (async () => {
+      const fromSupabase = await fetchCommunityPlaces();
+      const legacy = readUserPlaces();
+      const byId = new Map<string, Place>();
+      for (const p of [...fromSupabase, ...legacy]) {
+        if (!byId.has(p.id)) byId.set(p.id, p);
+      }
+      if (!cancelled) setExtraPlaces([...byId.values()]);
+    })();
+    return () => {
+      cancelled = true;
     };
-    window.addEventListener("storage", onStorage);
-    return () => window.removeEventListener("storage", onStorage);
   }, []);
 
   const results = useMemo(
@@ -41,9 +49,9 @@ export function PlacesDirectory() {
           pets: filters.pets || undefined,
           nearBeach: filters.nearBeach || undefined,
         },
-        userPlaces,
+        extraPlaces,
       ),
-    [filters, userPlaces],
+    [filters, extraPlaces],
   );
 
   return (

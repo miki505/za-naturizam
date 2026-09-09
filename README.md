@@ -12,8 +12,9 @@ TripAdvisor-style **AI tourist guide** for naturists and clothing-optional trave
 - **AI Travel Assistant** chat UI — client-side stub over seed data (no LLM API)
 - **Premium teaser** — offline maps + advanced filters (UI only)
 - **Clean Community** — respect rules, placeholder feed / join CTA (no auth)
-- **Contribute** (`/contribute`) — users can add beaches/camps (client-only)
-- **Ratings** — 1–5 stars per place, stored in the browser
+- **Contribute** (`/contribute`) — logged-in users submit places for admin review
+- **Ratings** — 1–5 stars pending admin approval; public stats from Supabase
+- **Auth + Admin** — Supabase Auth; `/admin` moderation for admins
 - **Featured / paid partner spotlight** — subscription partners sort to the top of the directory and appear on the homepage with sponsored offers (demo partners; no real payments)
 - Monetization scaffolding via affiliate CTAs + partner offers per place
 
@@ -37,25 +38,64 @@ Place photos prefer **real location** imagery:
 
 Do not hotlink hotel gallery scrapes.
 
-## User places & ratings (localStorage)
+## Auth, contributions & moderation (Supabase)
 
-Until Supabase (or similar) is wired, browser storage is the source of truth for UGC:
+Supabase project powers shared auth + moderated UGC.
 
-| Key | Purpose |
-| --- | --- |
-| `zn-user-places` | Community-submitted places (typed `Place[]` with `userAdded: true`) |
-| `zn-ratings` | `{ [placeId]: { sum, count, userRating? } }` |
+### Env
 
-- Submissions require **name + region + location + description** (light moderation; no auth).
-- Merged client-side into `/places` via `PlacesDirectory`; detail for UGC is `/places/community/[id]`.
-- Badge: **Zajednica / Community**.
-- Ratings: show community average when `count > 0`, otherwise the seed editorial rating; users can change their own star rating in that browser.
+Copy `.env.example` → `.env.local` and set:
 
-**Note:** localStorage = **this browser only** until a backend sync lands.
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+
+Do **not** commit `.env.local`.
+
+### Auth
+
+- Routes: `/login` (email+password sign-in/sign-up + magic link), `/auth/callback`
+- Header shows **Prijava / Log in** or email + **Odjava / Log out**
+- Packages: `@supabase/supabase-js`, `@supabase/ssr` (browser + server clients under `src/lib/supabase/`)
+
+### Contribute (`/contribute`)
+
+- Requires login
+- Inserts into `place_submissions` with `status = pending`
+- New submits no longer write to localStorage (legacy local places may still display if present)
+
+### Ratings
+
+- Requires login; upserts `rating_submissions` as `pending`
+- Public averages come only from `place_rating_stats` (approved)
+- UI message: **Čeka odobrenje admina** / Waiting for admin approval
+
+### Admin (`/admin`)
+
+- Visible/usable only when `profiles.role === 'admin'`
+- Middleware redirects unauthenticated users away from `/admin`
+- Approve place → `status=approved`, insert `community_places` (slugified name), set `published_slug`
+- Approve rating → `status=approved`, then RPC `recompute_place_rating_stats(p_place_key)`
+- Reject → `status=rejected`
+
+### Become an admin (SQL)
+
+In the Supabase SQL editor (after the user has signed up once so `handle_new_user` created their profile):
+
+```sql
+update public.profiles
+set role = 'admin'
+where email = 'you@example.com';
+-- or: where id = '<auth.users uuid>';
+```
+
+### Directory merge
+
+`PlacesDirectory` client-fetches `community_places` and merges them with seed places (and any legacy localStorage UGC).
 
 ## Tech stack
 
 - Next.js (App Router) + TypeScript + Tailwind CSS
+- Supabase Auth + Postgres (RLS) for profiles, submissions, community places, ratings
 - Seed data as typed TypeScript modules (`src/data/places.ts`)
 - Simple HR/EN dictionaries (`src/lib/i18n.ts`)
 - SEO metadata on core routes
@@ -92,13 +132,12 @@ It returns matches, a mini itinerary, a weather tip placeholder, and booking CTA
 
 ## Out of scope (MVP)
 
-Real scraping, live LLM, payments, auth, native apps, world coverage beyond Croatia seed.
+Real scraping, live LLM, payments, native apps, world coverage beyond Croatia seed.
 
 ## Next steps
 
 - Wire a real LLM + retrieval over the place catalog
-- Auth + Clean Community feed moderation
-- **Supabase** (or similar) for shared user places + ratings across devices
+- Clean Community feed UI on top of moderated content
 - Live weather / maps SDKs
 - Real partner billing for featured subscriptions
 - Affiliate network IDs and conversion tracking

@@ -2,11 +2,13 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useAuth } from "@/components/auth/AuthProvider";
 import { useLocale } from "./LocaleProvider";
 
 export function Header() {
   const { dict, toggleLocale, locale } = useLocale();
   const pathname = usePathname();
+  const { user, email, loading, isAdmin, signOut } = useAuth();
 
   const links = [
     { href: "/", label: dict.nav.home },
@@ -16,6 +18,7 @@ export function Header() {
     { href: "/contribute", label: dict.nav.contribute },
     { href: "/community", label: dict.nav.community },
     { href: "/partners", label: dict.nav.partners },
+    ...(isAdmin ? [{ href: "/admin", label: dict.nav.admin }] : []),
   ];
 
   return (
@@ -47,14 +50,38 @@ export function Header() {
           })}
         </nav>
 
-        <button
-          type="button"
-          onClick={toggleLocale}
-          className="rounded-full border border-amber-200 bg-amber-50 px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-amber-900 shadow-sm transition hover:bg-amber-100"
-          aria-label="Toggle language"
-        >
-          {locale === "hr" ? "EN" : "HR"}
-        </button>
+        <div className="flex items-center gap-2">
+          {!loading && !user ? (
+            <Link
+              href="/login"
+              className="rounded-full border border-sky-200 bg-sky-50 px-3 py-1.5 text-xs font-semibold text-sky-900 transition hover:bg-sky-100"
+            >
+              {dict.auth.login}
+            </Link>
+          ) : null}
+          {!loading && user ? (
+            <div className="flex items-center gap-2">
+              <span className="hidden max-w-[140px] truncate text-xs font-medium text-slate-600 sm:inline">
+                {email}
+              </span>
+              <button
+                type="button"
+                onClick={() => void signOut()}
+                className="rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition hover:bg-slate-50"
+              >
+                {dict.auth.logout}
+              </button>
+            </div>
+          ) : null}
+          <button
+            type="button"
+            onClick={toggleLocale}
+            className="rounded-full border border-amber-200 bg-amber-50 px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-amber-900 shadow-sm transition hover:bg-amber-100"
+            aria-label="Toggle language"
+          >
+            {locale === "hr" ? "EN" : "HR"}
+          </button>
+        </div>
       </div>
 
       <nav className="flex gap-1 overflow-x-auto border-t border-sky-50 px-2 py-2 md:hidden">
