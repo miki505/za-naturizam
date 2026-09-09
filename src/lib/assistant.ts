@@ -99,12 +99,12 @@ export function answerQuery(query: string, locale: Locale): AssistantReply {
   const names = matches.map((m) => (hr ? m.nameHr : m.name)).join(", ");
 
   const text = hr
-    ? `Na temelju seed podataka, najbolji spojevi za tvoj upit su: **${names}**.\n\n` +
+    ? `Najbolji spojevi za tvoj upit su: **${names}**.\n\n` +
       `Preporuka #1: **${top.nameHr}** (${top.locationHr}) — ocjena ${top.rating}/5. ` +
       `${top.petsAllowed ? "Prima kućne ljubimce. " : "Kućni ljubimci nisu u fokusu. "}` +
       `${top.nearBeach ? "Ima izravan pristup plaži/obali. " : ""}` +
       `\n\n${top.shortDescriptionHr}`
-    : `Based on seed data, the best matches for your query are: **${names}**.\n\n` +
+    : `The best matches for your query are: **${names}**.\n\n` +
       `Top pick: **${top.name}** (${top.location}) — rated ${top.rating}/5. ` +
       `${top.petsAllowed ? "Pets welcome. " : "Not pet-focused. "}` +
       `${top.nearBeach ? "Direct beach/shore access. " : ""}` +
