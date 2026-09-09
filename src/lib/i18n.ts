@@ -18,18 +18,40 @@ const dictionaries = {
     hero: {
       title: "Otkrijte Hrvatsku bez granica",
       subtitle:
-        "TripAdvisor-stil vodič za naturiste i clothing-optional putnike — plaže, kampovi i resorti uz AI preporuke.",
+        "Umjesto rasutih foruma — jedan pouzdani AI vodič za naturističke plaže, kampove i resorte uz Jadran.",
       ctaPlaces: "Pregledaj mjesta",
       ctaAssistant: "Pitaj AI asistenta",
+      searchChip: "Traži: naturistički kamp blizu plaže…",
+    },
+    trust: {
+      places: "16+ mjesta",
+      regions: "Istra–Dalmacija",
+      ai: "AI asistent",
+      community: "Clean Community",
     },
     features: {
-      title: "Što nudi MVP",
+      eyebrow: "Prednosti",
+      title: "Zašto Za Naturizam",
       directory: "Direktorij mjesta",
-      directoryDesc: "Istra, Kvarner i Dalmacija — filteri po tipu, ljubimcima i dress codeu.",
+      directoryDesc:
+        "Provjerena naturistička i clothing-optional mjesta od Istre do Dalmacije — filtriraj po tipu, ljubimcima i dress codeu.",
       ai: "AI travel asistent",
-      aiDesc: "Pitaj na hrvatskom ili engleskom; stub odgovara iz seed podataka.",
+      aiDesc:
+        "Pitaj na hrvatskom ili engleskom i dobij jasne preporuke za plaže, kampove i mini-itinerere.",
       communityTitle: "Clean Community",
-      communityDesc: "Poštovanje, privatnost i mirna razmjena iskustava.",
+      communityDesc:
+        "Poštovanje, privatnost i mirna razmjena iskustava — bez buke i bez pritiska.",
+    },
+    featured: {
+      eyebrow: "Odabrano",
+      title: "Istaknuta mjesta",
+      viewAll: "Sva mjesta",
+    },
+    bottomCta: {
+      title: "Ne znaš kamo? Pitaj asistenta.",
+      subtitle:
+        "Opisi što tražiš — regiju, tip mjesta, ljubimce — i dobij usmjerene prijedloge u sekundi.",
+      cta: "Otvori AI asistenta",
     },
     places: {
       title: "Direktorij mjesta",
@@ -67,7 +89,7 @@ const dictionaries = {
       map: "Otvori na karti",
       book: "Rezerviraj / Book",
       related: "Slična mjesta",
-      affiliateNote: "Partnerska poveznica (placeholder) — može donijeti proviziju.",
+      affiliateNote: "Partnerska poveznica — može donijeti proviziju.",
       petsYes: "Ljubimci dozvoljeni",
       petsNo: "Ljubimci nisu dozvoljeni",
       nearBeach: "Blizu plaže",
@@ -75,18 +97,18 @@ const dictionaries = {
     assistant: {
       title: "AI Travel Asistent",
       subtitle:
-        "Pitaj za preporuke kampa, plaže ili mini-itinerera. Odgovori su lokalni stub (bez LLM API-ja).",
+        "Pitaj za preporuke kampa, plaže ili mini-itinerera. Odgovori su lokalni i temeljeni na našem direktoriju.",
       placeholder: "npr. Najbolji naturistički kamp u Istri blizu plaže koji prima kućne ljubimce",
       send: "Pošalji",
-      thinking: "Tražim u seed podacima…",
+      thinking: "Tražim preporuke…",
       examples: "Primjeri pitanja",
-      weatherTip: "Vremenski savjet (placeholder)",
+      weatherTip: "Vremenski savjet",
       itinerary: "Mini itinerer",
       bookCtas: "Rezervacije",
     },
     premium: {
       title: "Premium teaser",
-      subtitle: "Offline karte i napredni filteri — freemium UI (bez naplate u MVP-u).",
+      subtitle: "Offline karte i napredni filteri — freemium UI (bez naplate za sada).",
       offlineMaps: "Offline karte",
       offlineMapsDesc: "Preuzmi regije za offline navigaciju do skrivenih uvala.",
       advancedFilters: "Napredni filteri",
@@ -105,13 +127,13 @@ const dictionaries = {
         "Ljubazna komunikacija; zero harassment.",
         "Ostavljamo mjesta čistima (leave no trace).",
       ],
-      feedTitle: "Feed (placeholder)",
+      feedTitle: "Feed (uskoro)",
       feedEmpty: "Još nema objava — pridruži se listi za rani pristup.",
-      joinCta: "Pridruži se (bez prijave — placeholder)",
+      joinCta: "Pridruži se (uskoro)",
     },
     footer: {
       rights: "Za Naturizam — vodič za odgovoran naturizam u Hrvatskoj.",
-      made: "MVP · Clean Community",
+      made: "Clean Community",
     },
   },
   en: {
@@ -129,18 +151,40 @@ const dictionaries = {
     hero: {
       title: "Discover Croatia without boundaries",
       subtitle:
-        "A TripAdvisor-style guide for naturists and clothing-optional travelers — beaches, camps and resorts with AI tips.",
+        "Scattered forum tips, one trusted AI guide — naturist beaches, camps and resorts along the Adriatic.",
       ctaPlaces: "Browse places",
       ctaAssistant: "Ask the AI assistant",
+      searchChip: "Search: naturist camp near the beach…",
+    },
+    trust: {
+      places: "16+ places",
+      regions: "Istria–Dalmatia",
+      ai: "AI assistant",
+      community: "Clean Community",
     },
     features: {
-      title: "What's in the MVP",
+      eyebrow: "Why us",
+      title: "Why Za Naturizam",
       directory: "Place directory",
-      directoryDesc: "Istria, Kvarner and Dalmatia — filter by type, pets and dress code.",
+      directoryDesc:
+        "Curated naturist and clothing-optional spots from Istria to Dalmatia — filter by type, pets and dress code.",
       ai: "AI travel assistant",
-      aiDesc: "Ask in Croatian or English; the stub answers from seed data.",
+      aiDesc:
+        "Ask in Croatian or English and get clear recommendations for beaches, camps and mini-itineraries.",
       communityTitle: "Clean Community",
-      communityDesc: "Respect, privacy and calm experience sharing.",
+      communityDesc:
+        "Respect, privacy and calm experience sharing — no noise, no pressure.",
+    },
+    featured: {
+      eyebrow: "Handpicked",
+      title: "Featured places",
+      viewAll: "All places",
+    },
+    bottomCta: {
+      title: "Not sure where to go? Ask the assistant.",
+      subtitle:
+        "Describe what you need — region, place type, pets — and get focused suggestions in seconds.",
+      cta: "Open AI assistant",
     },
     places: {
       title: "Place directory",
@@ -178,7 +222,7 @@ const dictionaries = {
       map: "Open in maps",
       book: "Book / Reserve",
       related: "Related places",
-      affiliateNote: "Affiliate placeholder link — may earn a commission.",
+      affiliateNote: "Affiliate link — may earn a commission.",
       petsYes: "Pets allowed",
       petsNo: "Pets not allowed",
       nearBeach: "Near beach",
@@ -186,18 +230,18 @@ const dictionaries = {
     assistant: {
       title: "AI Travel Assistant",
       subtitle:
-        "Ask for camp, beach or mini-itinerary tips. Answers are a local stub (no LLM API).",
+        "Ask for camp, beach or mini-itinerary tips. Answers are local and grounded in our place directory.",
       placeholder: "e.g. Best naturist camp in Istria near the beach that allows pets",
       send: "Send",
-      thinking: "Searching seed data…",
+      thinking: "Finding recommendations…",
       examples: "Example questions",
-      weatherTip: "Weather tip (placeholder)",
+      weatherTip: "Weather tip",
       itinerary: "Mini itinerary",
       bookCtas: "Booking",
     },
     premium: {
       title: "Premium teaser",
-      subtitle: "Offline maps and advanced filters — freemium UI (no payments in MVP).",
+      subtitle: "Offline maps and advanced filters — freemium UI (no payments yet).",
       offlineMaps: "Offline maps",
       offlineMapsDesc: "Download regions for offline navigation to hidden coves.",
       advancedFilters: "Advanced filters",
@@ -216,13 +260,13 @@ const dictionaries = {
         "Kind communication; zero harassment.",
         "Leave places clean (leave no trace).",
       ],
-      feedTitle: "Feed (placeholder)",
+      feedTitle: "Feed (coming soon)",
       feedEmpty: "No posts yet — join the list for early access.",
-      joinCta: "Join (no auth — placeholder)",
+      joinCta: "Join (coming soon)",
     },
     footer: {
       rights: "Za Naturizam — a guide to responsible naturism in Croatia.",
-      made: "MVP · Clean Community",
+      made: "Clean Community",
     },
   },
 } as const;
