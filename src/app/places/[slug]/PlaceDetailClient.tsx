@@ -2,6 +2,7 @@
 
 import type { Place } from "@/types";
 import { useLocale } from "@/components/LocaleProvider";
+import { StarRating } from "@/components/StarRating";
 
 export function PlaceDetailClient({ place, mapHref }: { place: Place; mapHref: string }) {
   const { locale, dict } = useLocale();
@@ -16,6 +17,11 @@ export function PlaceDetailClient({ place, mapHref }: { place: Place; mapHref: s
     <div className="space-y-8">
       <div>
         <div className="flex flex-wrap items-center gap-2">
+          {place.userAdded && (
+            <span className="rounded-full border border-violet-300 bg-violet-500/90 px-2.5 py-0.5 text-xs font-bold text-white">
+              {dict.communityBadge}
+            </span>
+          )}
           {place.featured && (
             <span className="rounded-full border border-amber-300 bg-amber-400/90 px-2.5 py-0.5 text-xs font-bold text-amber-950">
               {featuredLabel}
@@ -29,12 +35,6 @@ export function PlaceDetailClient({ place, mapHref }: { place: Place; mapHref: s
           </span>
           <span className="rounded-full border border-indigo-100 bg-indigo-50 px-2.5 py-0.5 text-xs font-semibold text-indigo-800">
             {dict.places.dress[place.dressCode]}
-          </span>
-          <span className="inline-flex items-center gap-1 rounded-full border border-amber-200/80 bg-amber-50 px-2.5 py-0.5 text-xs font-bold text-amber-900">
-            <span aria-hidden className="text-amber-500">
-              ★
-            </span>
-            {place.rating.toFixed(1)}
           </span>
         </div>
         <h1 className="mt-4 text-3xl font-bold tracking-tight text-sky-950 sm:text-4xl sm:leading-[1.15]">
@@ -83,6 +83,8 @@ export function PlaceDetailClient({ place, mapHref }: { place: Place; mapHref: s
           </p>
         )}
       </div>
+
+      <StarRating placeId={place.id} seedRating={place.rating} />
 
       <section className="rounded-2xl border border-sky-100/90 bg-white/80 p-5 shadow-sm sm:p-6">
         <p className="mb-2 text-xs font-semibold uppercase tracking-[0.12em] text-amber-700/90">

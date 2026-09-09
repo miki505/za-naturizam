@@ -13,6 +13,7 @@ export function Header() {
     { href: "/places", label: dict.nav.places },
     { href: "/assistant", label: dict.nav.assistant },
     { href: "/premium", label: dict.nav.premium },
+    { href: "/contribute", label: dict.nav.contribute },
     { href: "/community", label: dict.nav.community },
     { href: "/partners", label: dict.nav.partners },
   ];

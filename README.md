@@ -12,6 +12,8 @@ TripAdvisor-style **AI tourist guide** for naturists and clothing-optional trave
 - **AI Travel Assistant** chat UI — client-side stub over seed data (no LLM API)
 - **Premium teaser** — offline maps + advanced filters (UI only)
 - **Clean Community** — respect rules, placeholder feed / join CTA (no auth)
+- **Contribute** (`/contribute`) — users can add beaches/camps (client-only)
+- **Ratings** — 1–5 stars per place, stored in the browser
 - **Featured / paid partner spotlight** — subscription partners sort to the top of the directory and appear on the homepage with sponsored offers (demo partners; no real payments)
 - Monetization scaffolding via affiliate CTAs + partner offers per place
 
@@ -27,7 +29,29 @@ Demo partners in seed data: **Valalta** (rank 1), **Koversada** (rank 2), **Bunc
 
 ## Images & credits
 
-Place photos use **royalty-free Unsplash** Adriatic / beach / camp images via stable `images.unsplash.com` URLs. Credits are stored on each place (`imageCredit`) and note when the photo is **illustrative** (not a property marketing shot). Do not hotlink hotel gallery scrapes.
+Place photos prefer **real location** imagery:
+
+1. **Wikimedia Commons** photos of the named place (landscape / overview / coastline — **not** nude close-ups of people on listing cards). Credits include author + Commons + license hint (`imageCredit`).
+2. Where no clear Commons photo of that exact site exists: a **static OpenStreetMap** map centered on lat/lng (`staticmap.openstreetmap.de`) **or** a Commons photo of that town/bay with an honest credit noting the bay/town.
+3. Cards and detail pages show the credit; if an image fails to load, a **gradient fallback** is shown (`PlaceImage`).
+
+Do not hotlink hotel gallery scrapes.
+
+## User places & ratings (localStorage)
+
+Until Supabase (or similar) is wired, browser storage is the source of truth for UGC:
+
+| Key | Purpose |
+| --- | --- |
+| `zn-user-places` | Community-submitted places (typed `Place[]` with `userAdded: true`) |
+| `zn-ratings` | `{ [placeId]: { sum, count, userRating? } }` |
+
+- Submissions require **name + region + location + description** (light moderation; no auth).
+- Merged client-side into `/places` via `PlacesDirectory`; detail for UGC is `/places/community/[id]`.
+- Badge: **Zajednica / Community**.
+- Ratings: show community average when `count > 0`, otherwise the seed editorial rating; users can change their own star rating in that browser.
+
+**Note:** localStorage = **this browser only** until a backend sync lands.
 
 ## Tech stack
 
@@ -74,6 +98,7 @@ Real scraping, live LLM, payments, auth, native apps, world coverage beyond Croa
 
 - Wire a real LLM + retrieval over the place catalog
 - Auth + Clean Community feed moderation
+- **Supabase** (or similar) for shared user places + ratings across devices
 - Live weather / maps SDKs
 - Real partner billing for featured subscriptions
 - Affiliate network IDs and conversion tracking

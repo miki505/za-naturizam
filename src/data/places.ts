@@ -1,59 +1,12 @@
 import type { Place } from "@/types";
+import { osmMapCredit, osmStaticMapUrl } from "@/lib/maps";
 
-/** Illustrative Adriatic / beach / camp Unsplash URLs (royalty-free). Not property-specific. */
-const img = {
-  peninsula:
-    "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80",
-  turquoise:
-    "https://images.unsplash.com/photo-1559827260-dc66d52bef19?auto=format&fit=crop&w=1200&q=80",
-  oliveCoast:
-    "https://images.unsplash.com/photo-1519046904884-4511b0e0e4e6?auto=format&fit=crop&w=1200&q=80",
-  rockyCove:
-    "https://images.unsplash.com/photo-1473116763249-2faaef81ccda?auto=format&fit=crop&w=1200&q=80",
-  pebbleBay:
-    "https://images.unsplash.com/photo-1506953823976-10e95e1a4e6f?auto=format&fit=crop&w=1200&q=80",
-  pineCamp:
-    "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=1200&q=80",
-  clearWater:
-    "https://images.unsplash.com/photo-1505118380757-91f5f5632de0?auto=format&fit=crop&w=1200&q=80",
-  islandShore:
-    "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1200&q=80",
-  cliffBeach:
-    "https://images.unsplash.com/photo-1468413253725-0d5181091126?auto=format&fit=crop&w=1200&q=80",
-  campShade:
-    "https://images.unsplash.com/photo-1523987355523-c7b5b0dd90a7?auto=format&fit=crop&w=1200&q=80",
-  sunsetCoast:
-    "https://images.unsplash.com/photo-1437719417032-8595fd9e9dc6?auto=format&fit=crop&w=1200&q=80",
-  aerialBay:
-    "https://images.unsplash.com/photo-1483683804023-6ccdb62f86ef?auto=format&fit=crop&w=1200&q=80",
-  dalmatia:
-    "https://images.unsplash.com/photo-1555990793-da11153b2473?auto=format&fit=crop&w=1200&q=80",
-  cityBeach:
-    "https://images.unsplash.com/photo-1510414842594-a61c695b4b2e?auto=format&fit=crop&w=1200&q=80",
-  quietCove:
-    "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=70",
-  resortPool:
-    "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1200&q=80",
-  windCoast:
-    "https://images.unsplash.com/photo-1493558103817-58b2924bce98?auto=format&fit=crop&w=1200&q=80",
-  hvarIslands:
-    "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=80",
-  makarska:
-    "https://images.unsplash.com/photo-1533106497176-45ae19e68ba2?auto=format&fit=crop&w=1200&q=80",
-  campingTent:
-    "https://images.unsplash.com/photo-1478131143081-80f7f84ca84d?auto=format&fit=crop&w=1200&q=80",
-  croatiaCoast:
-    "https://images.unsplash.com/photo-1605649487212-47bdab064df7?auto=format&fit=crop&w=1200&q=80",
-  blueLagoon:
-    "https://images.unsplash.com/photo-1519046904884-4511b0e0e4e6?auto=format&fit=crop&w=1100&q=80",
-  pebbles:
-    "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1100&q=75",
-  forestCamp:
-    "https://images.unsplash.com/photo-1504851149312-7a075b496cc7?auto=format&fit=crop&w=1200&q=80",
-} as const;
+/** Wikimedia Commons thumb/direct URLs — real location imagery (overview/landscape). */
+const commons = (path: string) =>
+  `https://upload.wikimedia.org/wikipedia/commons/${path}`;
 
-const credit = (note: string) =>
-  `Photo: Unsplash — illustrative coastal photo (${note})`;
+const creditCommons = (author: string, license: string, note: string) =>
+  `Photo: ${author} — Wikimedia Commons (${license}) — ${note}`;
 
 export const places: Place[] = [
   {
@@ -103,8 +56,8 @@ export const places: Place[] = [
     affiliateLabel: "Check availability",
     affiliateUrl: "https://www.booking.com/searchresults.html?ss=Koversada+Vrsar",
     imageGradient: "from-sky-400 via-cyan-300 to-amber-200",
-    imageUrl: img.peninsula,
-    imageCredit: credit("Adriatic peninsula / resort vibe"),
+    imageUrl: commons("thumb/0/0b/Koversada_-_panoramio_%287%29.jpg/1280px-Koversada_-_panoramio_%287%29.jpg"),
+    imageCredit: creditCommons("maurizio T.", "CC BY 3.0", "Koversada peninsula overview"),
     officialUrl: "https://www.maistra.com/camps/camping-koversada",
     featured: true,
     featuredRank: 2,
@@ -181,8 +134,8 @@ export const places: Place[] = [
     affiliateLabel: "Reserve stay",
     affiliateUrl: "https://www.booking.com/searchresults.html?ss=Valalta+Rovinj",
     imageGradient: "from-teal-400 via-sky-300 to-yellow-200",
-    imageUrl: img.turquoise,
-    imageCredit: credit("clear Adriatic water / camp shoreline"),
+    imageUrl: commons("thumb/c/c5/Valalta_superrigarde_1.jpg/1280px-Valalta_superrigarde_1.jpg"),
+    imageCredit: creditCommons("Thomas Pusch", "CC BY-SA 3.0", "Valalta naturist camp overview"),
     officialUrl: "https://www.valalta.hr",
     featured: true,
     featuredRank: 1,
@@ -247,8 +200,8 @@ export const places: Place[] = [
     affiliateLabel: "Book camp",
     affiliateUrl: "https://www.booking.com/searchresults.html?ss=Camping+Ulika+Pore%C4%8D",
     imageGradient: "from-lime-400 via-emerald-300 to-sky-200",
-    imageUrl: img.oliveCoast,
-    imageCredit: credit("olive-coast / sheltered bay mood"),
+    imageUrl: commons("thumb/8/84/Plava_Laguna_Strand.jpg/1280px-Plava_Laguna_Strand.jpg"),
+    imageCredit: creditCommons("Corradox", "CC BY-SA 3.0", "Poreč / Lanterna riviera (near Camping Ulika)"),
     officialUrl: "https://www.maistra.com/camps/camping-ulika",
   },
   {
@@ -287,8 +240,8 @@ export const places: Place[] = [
     affiliateLabel: "Find nearby stay",
     affiliateUrl: "https://www.booking.com/searchresults.html?ss=Premantura",
     imageGradient: "from-blue-500 via-cyan-400 to-stone-300",
-    imageUrl: img.rockyCove,
-    imageCredit: credit("rocky Istrian cove"),
+    imageUrl: commons("thumb/6/62/RT_Kamenjak.jpg/1280px-RT_Kamenjak.jpg"),
+    imageCredit: creditCommons("Einaz80", "CC BY-SA 4.0", "Cape Kamenjak / Premantura coastline"),
   },
   {
     id: "5",
@@ -326,8 +279,8 @@ export const places: Place[] = [
     affiliateLabel: "Book Bunculuka",
     affiliateUrl: "https://www.booking.com/searchresults.html?ss=Bunculuka+Ba%C5%A1ka",
     imageGradient: "from-indigo-400 via-sky-300 to-amber-100",
-    imageUrl: img.pebbleBay,
-    imageCredit: credit("pebble cove / clear water"),
+    imageUrl: commons("thumb/a/ac/Ba%C5%A1ka_beach.jpg/1280px-Ba%C5%A1ka_beach.jpg"),
+    imageCredit: creditCommons("harassek", "CC BY-SA 3.0", "Baška beach / cove near Bunculuka"),
     officialUrl: "https://www.valamar.com/en/camping/camping-bunculuka-baska",
     featured: true,
     featuredRank: 3,
@@ -374,8 +327,8 @@ export const places: Place[] = [
     affiliateLabel: "Reserve pitch",
     affiliateUrl: "https://www.booking.com/searchresults.html?ss=Camping+Glavotok+Krk",
     imageGradient: "from-emerald-500 via-teal-300 to-sky-200",
-    imageUrl: img.pineCamp,
-    imageCredit: credit("pine forest camp / west Krk mood"),
+    imageUrl: commons("f/f6/Glavotok_-_samostan.jpg"),
+    imageCredit: creditCommons("Bzmarko", "Public domain", "Glavotok monastery and west Krk shore"),
   },
   {
     id: "7",
@@ -406,8 +359,8 @@ export const places: Place[] = [
     affiliateLabel: "Stay near Punat",
     affiliateUrl: "https://www.booking.com/searchresults.html?ss=Punat+Krk",
     imageGradient: "from-cyan-500 via-blue-300 to-stone-200",
-    imageUrl: img.clearWater,
-    imageCredit: credit("clear rocky swimming spot"),
+    imageUrl: commons("thumb/b/bd/Uvala_Konobe_s_mora.jpg/1280px-Uvala_Konobe_s_mora.jpg"),
+    imageCredit: creditCommons("Bzmarko", "Public domain", "Konobe bay from the sea"),
   },
   {
     id: "8",
@@ -438,8 +391,8 @@ export const places: Place[] = [
     affiliateLabel: "Book Baldarin",
     affiliateUrl: "https://www.booking.com/searchresults.html?ss=Camping+Baldarin+Cres",
     imageGradient: "from-teal-500 via-cyan-300 to-lime-200",
-    imageUrl: img.islandShore,
-    imageCredit: credit("island shore / pine camp"),
+    imageUrl: commons("thumb/7/7f/Cres_03.jpg/1280px-Cres_03.jpg"),
+    imageCredit: creditCommons("Alexander Leisser", "CC BY-SA 4.0", "Cres island coast (Baldarin is on southern Cres)"),
   },
   {
     id: "9",
@@ -470,8 +423,8 @@ export const places: Place[] = [
     affiliateLabel: "Hotels on Rab",
     affiliateUrl: "https://www.booking.com/searchresults.html?ss=Rab+Island",
     imageGradient: "from-amber-400 via-orange-200 to-sky-300",
-    imageUrl: img.sunsetCoast,
-    imageCredit: credit("historic island beach mood"),
+    imageUrl: commons("thumb/7/74/Sahara_Beach.JPG/1280px-Sahara_Beach.JPG"),
+    imageCredit: creditCommons("Mrbeachguide", "CC BY-SA 3.0", "Kandarola (Sahara) beach, Rab"),
   },
   {
     id: "10",
@@ -502,8 +455,8 @@ export const places: Place[] = [
     affiliateLabel: "Book Straško",
     affiliateUrl: "https://www.booking.com/searchresults.html?ss=Camping+Stra%C5%A1ko+Novalja",
     imageGradient: "from-sky-400 via-stone-300 to-amber-200",
-    imageUrl: img.windCoast,
-    imageCredit: credit("Pag coast / holiday-park shore"),
+    imageUrl: commons("thumb/8/86/Novalja_-_pla%C5%BEa_Stra%C5%A1ko.jpg/1280px-Novalja_-_pla%C5%BEa_Stra%C5%A1ko.jpg"),
+    imageCredit: creditCommons("Silverije", "CC BY-SA 4.0", "Straško beach, Novalja / Pag"),
   },
   {
     id: "11",
@@ -534,8 +487,8 @@ export const places: Place[] = [
     affiliateLabel: "Stay Makarska",
     affiliateUrl: "https://www.booking.com/searchresults.html?ss=Makarska",
     imageGradient: "from-blue-600 via-cyan-400 to-stone-400",
-    imageUrl: img.cliffBeach,
-    imageCredit: credit("cliff-framed Dalmatian beach"),
+    imageUrl: commons("thumb/3/36/Nugal_beach_MakarskaTucepi.jpg/1280px-Nugal_beach_MakarskaTucepi.jpg"),
+    imageCredit: creditCommons("Tengilorg", "CC BY 3.0", "Nugal beach between Makarska and Tučepi"),
   },
   {
     id: "12",
@@ -566,8 +519,8 @@ export const places: Place[] = [
     affiliateLabel: "Hotels in Split",
     affiliateUrl: "https://www.booking.com/searchresults.html?ss=Split",
     imageGradient: "from-orange-300 via-sky-400 to-blue-500",
-    imageUrl: img.cityBeach,
-    imageCredit: credit("city-adjacent Adriatic beach"),
+    imageUrl: commons("thumb/8/80/Kasjuni_Beach_-_Split_-_Croatia_2023_07.jpg/1280px-Kasjuni_Beach_-_Split_-_Croatia_2023_07.jpg"),
+    imageCredit: creditCommons("Elbert Hampton", "CC0", "Kašjuni Beach, Split"),
   },
   {
     id: "13",
@@ -598,8 +551,8 @@ export const places: Place[] = [
     affiliateLabel: "Stay Vodice / Tribunj",
     affiliateUrl: "https://www.booking.com/searchresults.html?ss=Tribunj",
     imageGradient: "from-cyan-400 via-teal-300 to-yellow-100",
-    imageUrl: img.quietCove,
-    imageCredit: credit("quiet pebble cove"),
+    imageUrl: commons("thumb/5/5d/Tribunj.jpg/1280px-Tribunj.jpg"),
+    imageCredit: creditCommons("Sztudva Gyöngyi", "CC BY-SA 3.0", "Tribunj town/bay (near Sovlje)"),
   },
   {
     id: "14",
@@ -630,8 +583,8 @@ export const places: Place[] = [
     affiliateLabel: "Book Šibenik stay",
     affiliateUrl: "https://www.booking.com/searchresults.html?ss=Solaris+%C5%A0ibenik",
     imageGradient: "from-sky-500 via-indigo-300 to-amber-200",
-    imageUrl: img.dalmatia,
-    imageCredit: credit("Dalmatian resort-zone coastline"),
+    imageUrl: commons("thumb/5/59/Sibenik_coast.jpg/1280px-Sibenik_coast.jpg"),
+    imageCredit: creditCommons("Zvone00", "CC BY-SA 4.0", "Šibenik coastline near Solaris zone"),
   },
   {
     id: "15",
@@ -662,8 +615,8 @@ export const places: Place[] = [
     affiliateLabel: "Reserve Mon Perin",
     affiliateUrl: "https://www.booking.com/searchresults.html?ss=Camping+Mon+Perin+Bale",
     imageGradient: "from-yellow-300 via-lime-300 to-cyan-300",
-    imageUrl: img.resortPool,
-    imageCredit: credit("premium camp / pool resort vibe"),
+    imageUrl: osmStaticMapUrl(45.04, 13.72),
+    imageCredit: osmMapCredit("San Polo Bay / Mon Perin area (Bale)"),
     officialUrl: "https://www.monperin.hr",
   },
   {
@@ -695,8 +648,8 @@ export const places: Place[] = [
     affiliateLabel: "Stay in Pula",
     affiliateUrl: "https://www.booking.com/searchresults.html?ss=Pula",
     imageGradient: "from-rose-300 via-sky-300 to-cyan-400",
-    imageUrl: img.aerialBay,
-    imageCredit: credit("urban-adjacent Istrian bay"),
+    imageUrl: commons("b/b9/Pula_Punta_Verudela.JPG"),
+    imageCredit: creditCommons("Orlovic", "CC BY-SA 3.0", "Punta Verudela, Pula (near Hidrobaza)"),
   },
   // ——— New places ———
   {
@@ -744,8 +697,8 @@ export const places: Place[] = [
     affiliateLabel: "Book Solaris Poreč",
     affiliateUrl: "https://www.booking.com/searchresults.html?ss=Camping+Solaris+Pore%C4%8D",
     imageGradient: "from-cyan-400 via-sky-300 to-lime-200",
-    imageUrl: img.campShade,
-    imageCredit: credit("Poreč riviera camp / pebble shore"),
+    imageUrl: commons("thumb/6/6d/Pore%C4%8D.jpg/1280px-Pore%C4%8D.jpg"),
+    imageCredit: creditCommons("Viktar Palstsiuk", "CC BY-SA 4.0", "Poreč old town / riviera (near Solaris Poreč)"),
     officialUrl: "https://www.campingsolaris.com",
   },
   {
@@ -785,8 +738,8 @@ export const places: Place[] = [
     affiliateLabel: "Book Arena Kažela",
     affiliateUrl: "https://www.booking.com/searchresults.html?ss=Arena+Ka%C5%BEela+Medulin",
     imageGradient: "from-amber-300 via-sky-300 to-teal-300",
-    imageUrl: img.croatiaCoast,
-    imageCredit: credit("Medulin peninsula / large camp shore"),
+    imageUrl: commons("thumb/f/f6/Medulin_Kazela.jpg/1280px-Medulin_Kazela.jpg"),
+    imageCredit: creditCommons("Teknicoloreyes", "CC BY-SA 4.0", "Medulin Kažela camp shoreline"),
     officialUrl: "https://www.arenacamps.com/en/camps/arena-kazela",
   },
   {
@@ -818,8 +771,8 @@ export const places: Place[] = [
     affiliateLabel: "Stay in Hvar",
     affiliateUrl: "https://www.booking.com/searchresults.html?ss=Hvar",
     imageGradient: "from-blue-400 via-cyan-200 to-emerald-200",
-    imageUrl: img.hvarIslands,
-    imageCredit: credit("Hvar / island archipelago day-boat vibe"),
+    imageUrl: commons("0/0b/Hvar_grad_i_Pakleni_otoci.JPG"),
+    imageCredit: creditCommons("August Dominus", "CC BY-SA 4.0", "Hvar town and Pakleni islands overview"),
   },
   {
     id: "20",
@@ -850,8 +803,8 @@ export const places: Place[] = [
     affiliateLabel: "Stay Baška Voda",
     affiliateUrl: "https://www.booking.com/searchresults.html?ss=Ba%C5%A1ka+Voda",
     imageGradient: "from-sky-400 via-blue-300 to-stone-200",
-    imageUrl: img.makarska,
-    imageCredit: credit("Makarska Riviera pebble shore"),
+    imageUrl: commons("thumb/e/ee/Ba%C5%A1ka_Voda_-_pla%C5%BEa.jpg/1280px-Ba%C5%A1ka_Voda_-_pla%C5%BEa.jpg"),
+    imageCredit: creditCommons("Silverije", "CC BY-SA 4.0", "Baška Voda beach / Makarska Riviera"),
   },
   {
     id: "21",
@@ -882,8 +835,8 @@ export const places: Place[] = [
     affiliateLabel: "Stay near Metajna",
     affiliateUrl: "https://www.booking.com/searchresults.html?ss=Metajna+Pag",
     imageGradient: "from-stone-300 via-sky-400 to-cyan-200",
-    imageUrl: img.windCoast,
-    imageCredit: credit("open Pag coastline"),
+    imageUrl: commons("thumb/c/c4/Metajna_Gesamtansicht.jpg/1280px-Metajna_Gesamtansicht.jpg"),
+    imageCredit: creditCommons("Palauenc05", "CC BY-SA 4.0", "Metajna overview, Pag"),
   },
   {
     id: "22",
@@ -914,8 +867,8 @@ export const places: Place[] = [
     affiliateLabel: "Stay in Trogir",
     affiliateUrl: "https://www.booking.com/searchresults.html?ss=Trogir",
     imageGradient: "from-teal-400 via-cyan-300 to-amber-200",
-    imageUrl: img.blueLagoon,
-    imageCredit: credit("Trogir-area rocky beach"),
+    imageUrl: commons("thumb/5/5d/Croatia-01151_-_Coastline_near_Trogir_%289549247080%29.jpg/1280px-Croatia-01151_-_Coastline_near_Trogir_%289549247080%29.jpg"),
+    imageCredit: creditCommons("Dennis G. Jarvis", "CC BY-SA 2.0", "Coastline near Trogir (Kava area)"),
   },
   {
     id: "23",
@@ -946,8 +899,8 @@ export const places: Place[] = [
     affiliateLabel: "Book Rapoća",
     affiliateUrl: "https://www.booking.com/searchresults.html?ss=Camping+Rapo%C4%87a+Rab",
     imageGradient: "from-lime-400 via-teal-300 to-sky-200",
-    imageUrl: img.campingTent,
-    imageCredit: credit("Rab / Lopar camping shore"),
+    imageUrl: commons("thumb/1/1e/Lopar_San_Marino_strand-Own_Photo-Antal_Aron_Gyula-GFDL.jpg/1280px-Lopar_San_Marino_strand-Own_Photo-Antal_Aron_Gyula-GFDL.jpg"),
+    imageCredit: creditCommons("Antal Áron Gyula", "CC BY-SA 3.0", "Lopar / San Marino beach, Rab (near Rapoća)"),
   },
   {
     id: "24",
@@ -978,8 +931,8 @@ export const places: Place[] = [
     affiliateLabel: "Stay Stara Baška / Krk",
     affiliateUrl: "https://www.booking.com/searchresults.html?ss=Stara+Ba%C5%A1ka",
     imageGradient: "from-indigo-400 via-cyan-300 to-stone-300",
-    imageUrl: img.pebbles,
-    imageCredit: credit("wild Krk rocky coves"),
+    imageUrl: commons("thumb/b/bf/Aerial_image_of_Stara_Ba%C5%A1ka_%28view_from_the_south%29.jpg/1280px-Aerial_image_of_Stara_Ba%C5%A1ka_%28view_from_the_south%29.jpg"),
+    imageCredit: creditCommons("Carsten Steger", "CC BY-SA 4.0", "Aerial overview of Stara Baška, Krk"),
   },
 ];
 

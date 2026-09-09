@@ -39,9 +39,9 @@ export interface Place {
   affiliateLabel: string;
   affiliateUrl: string;
   imageGradient: string;
-  /** Royalty-free illustrative image (e.g. Unsplash). */
+  /** Real location image: Wikimedia Commons or OSM static map. */
   imageUrl?: string;
-  /** Short attribution, e.g. "Photo: Unsplash / Name — illustrative coastal photo". */
+  /** Attribution: author + Commons/OSM + license hint. */
   imageCredit?: string;
   officialUrl?: string;
   /** Paid partner spotlight */
@@ -50,7 +50,38 @@ export interface Place {
   featuredRank?: number;
   featuredLabel?: string;
   sponsoredOffers?: SponsoredOffer[];
+  /** Client-only community submission (localStorage). */
+  userAdded?: boolean;
 }
+
+export interface UserPlaceInput {
+  nameHr: string;
+  name?: string;
+  region: Region;
+  type: PlaceType;
+  dressCode: DressCode;
+  petsAllowed: boolean;
+  nearBeach: boolean;
+  location: string;
+  locationHr?: string;
+  lat?: number;
+  lng?: number;
+  shortDescriptionHr: string;
+  shortDescription?: string;
+  amenities?: string[];
+  amenitiesHr?: string[];
+  imageUrl: string;
+  imageCredit?: string;
+  officialUrl?: string;
+}
+
+export interface PlaceRatingEntry {
+  sum: number;
+  count: number;
+  userRating?: number;
+}
+
+export type RatingsStore = Record<string, PlaceRatingEntry>;
 
 export interface ChatMessage {
   id: string;

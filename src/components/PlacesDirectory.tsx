@@ -1,14 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { filterPlaces } from "@/lib/places";
+import { readUserPlaces } from "@/lib/userPlaces";
+import type { Place } from "@/types";
 import { PlaceCard } from "./PlaceCard";
 import { PlaceFilters, type FilterState } from "./PlaceFilters";
 import { useLocale } from "./LocaleProvider";
 
 export function PlacesDirectory() {
   const { dict } = useLocale();
+  const [userPlaces, setUserPlaces] = useState<Place[]>([]);
   const [filters, setFilters] = useState<FilterState>({
     q: "",
     region: "all",
@@ -18,17 +21,29 @@ export function PlacesDirectory() {
     nearBeach: false,
   });
 
+  useEffect(() => {
+    setUserPlaces(readUserPlaces());
+    const onStorage = (e: StorageEvent) => {
+      if (e.key === "zn-user-places") setUserPlaces(readUserPlaces());
+    };
+    window.addEventListener("storage", onStorage);
+    return () => window.removeEventListener("storage", onStorage);
+  }, []);
+
   const results = useMemo(
     () =>
-      filterPlaces({
-        q: filters.q,
-        region: filters.region,
-        type: filters.type,
-        dressCode: filters.dressCode,
-        pets: filters.pets || undefined,
-        nearBeach: filters.nearBeach || undefined,
-      }),
-    [filters],
+      filterPlaces(
+        {
+          q: filters.q,
+          region: filters.region,
+          type: filters.type,
+          dressCode: filters.dressCode,
+          pets: filters.pets || undefined,
+          nearBeach: filters.nearBeach || undefined,
+        },
+        userPlaces,
+      ),
+    [filters, userPlaces],
   );
 
   return (
@@ -39,6 +54,12 @@ export function PlacesDirectory() {
           <span className="font-semibold text-sky-900">{results.length}</span>{" "}
           {dict.places.results}
         </p>
+        <Link
+          href="/contribute"
+          className="text-sm font-semibold text-violet-700 transition hover:text-violet-900 hover:underline"
+        >
+          {dict.nav.contribute} →
+        </Link>
       </div>
       {results.length === 0 ? (
         <div className="rounded-[1.5rem] border border-dashed border-sky-200/90 bg-gradient-to-b from-white/90 to-sky-50/50 px-6 py-14 text-center shadow-sm">

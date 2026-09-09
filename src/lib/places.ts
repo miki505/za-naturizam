@@ -41,9 +41,10 @@ export interface PlaceFilters {
   nearBeach?: boolean;
 }
 
-export function filterPlaces(filters: PlaceFilters): Place[] {
+export function filterPlaces(filters: PlaceFilters, extra: Place[] = []): Place[] {
   const q = filters.q?.trim().toLowerCase() ?? "";
-  const filtered = places.filter((p) => {
+  const pool = [...places, ...extra];
+  const filtered = pool.filter((p) => {
     if (filters.region && filters.region !== "all" && p.region !== filters.region) return false;
     if (filters.type && filters.type !== "all" && p.type !== filters.type) return false;
     if (filters.dressCode && filters.dressCode !== "all" && p.dressCode !== filters.dressCode)
@@ -61,4 +62,9 @@ export function filterPlaces(filters: PlaceFilters): Place[] {
 
 export function mapsUrl(place: Place): string {
   return `https://www.google.com/maps/search/?api=1&query=${place.lat},${place.lng}`;
+}
+
+export function placeHref(place: Place): string {
+  if (place.userAdded) return `/places/community/${place.id}`;
+  return `/places/${place.slug}`;
 }

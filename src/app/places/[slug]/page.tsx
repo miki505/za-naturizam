@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { AffiliateCTA } from "@/components/AffiliateCTA";
 import { PlaceCard } from "@/components/PlaceCard";
 import { getAllPlaces, getPlaceBySlug, getRelatedPlaces, mapsUrl } from "@/lib/places";
+import { PlaceImage } from "@/components/PlaceImage";
 import { PlaceDetailClient } from "./PlaceDetailClient";
 
 interface Props {
@@ -37,24 +38,19 @@ export default async function PlaceDetailPage({ params }: Props) {
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-12 md:py-14">
-      <div
-        className={`relative mb-8 h-52 overflow-hidden rounded-[2rem] bg-gradient-to-br ${place.imageGradient} shadow-lg shadow-sky-100/60 sm:h-64`}
-      >
-        {place.imageUrl ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={place.imageUrl}
-            alt=""
-            className="absolute inset-0 h-full w-full object-cover"
-          />
-        ) : null}
-        <div
-          aria-hidden
-          className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(255,255,255,0.25),transparent_50%),linear-gradient(to_top,rgba(15,23,42,0.35),transparent_55%)]"
+      <div className="relative mb-8 h-52 overflow-hidden rounded-[2rem] shadow-lg shadow-sky-100/60 sm:h-64">
+        <PlaceImage
+          src={place.imageUrl}
+          gradient={place.imageGradient}
+          className="absolute inset-0 h-full w-full"
         />
         <div
           aria-hidden
-          className="absolute inset-4 rounded-[1.4rem] border border-white/35"
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(255,255,255,0.25),transparent_50%),linear-gradient(to_top,rgba(15,23,42,0.35),transparent_55%)]"
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-4 rounded-[1.4rem] border border-white/35"
         />
         {place.featured && (
           <span className="absolute left-6 top-6 rounded-full border border-amber-300/90 bg-amber-400/95 px-3 py-1 text-xs font-bold text-amber-950 shadow-sm">
