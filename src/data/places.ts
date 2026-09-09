@@ -1,5 +1,4 @@
 import type { Place } from "@/types";
-import { osmMapCredit, osmStaticMapUrl } from "@/lib/maps";
 
 /** Wikimedia Commons thumb/direct URLs — real location imagery (overview/landscape). */
 const commons = (path: string) =>
@@ -201,7 +200,7 @@ export const places: Place[] = [
     affiliateUrl: "https://www.booking.com/searchresults.html?ss=Camping+Ulika+Pore%C4%8D",
     imageGradient: "from-lime-400 via-emerald-300 to-sky-200",
     imageUrl: commons("thumb/8/84/Plava_Laguna_Strand.jpg/1280px-Plava_Laguna_Strand.jpg"),
-    imageCredit: creditCommons("Corradox", "CC BY-SA 3.0", "Poreč / Lanterna riviera (near Camping Ulika)"),
+    imageCredit: creditCommons("Corradox", "CC BY-SA 3.0", "Plava Laguna beach, Poreč riviera (closest Commons shoreline to Ulika / Lanterna)"),
     officialUrl: "https://www.maistra.com/camps/camping-ulika",
   },
   {
@@ -216,8 +215,8 @@ export const places: Place[] = [
     nearBeach: true,
     location: "Premantura, Istria",
     locationHr: "Premantura, Istra",
-    lat: 44.7679,
-    lng: 13.9237,
+    lat: 44.775,
+    lng: 13.905,
     rating: 4.6,
     shortDescription:
       "Wild protected peninsula south of Pula with rocky coves; several quieter spots are clothing-optional among naturist visitors.",
@@ -279,8 +278,8 @@ export const places: Place[] = [
     affiliateLabel: "Book Bunculuka",
     affiliateUrl: "https://www.booking.com/searchresults.html?ss=Bunculuka+Ba%C5%A1ka",
     imageGradient: "from-indigo-400 via-sky-300 to-amber-100",
-    imageUrl: commons("thumb/a/ac/Ba%C5%A1ka_beach.jpg/1280px-Ba%C5%A1ka_beach.jpg"),
-    imageCredit: creditCommons("harassek", "CC BY-SA 3.0", "Baška beach / cove near Bunculuka"),
+    imageUrl: commons("thumb/a/ac/Z_Bunculuky_na_sv.Ivan_-_panoramio.jpg/1280px-Z_Bunculuky_na_sv.Ivan_-_panoramio.jpg"),
+    imageCredit: creditCommons("srub", "CC BY 3.0", "Bunculuka beach cove, Baška"),
     officialUrl: "https://www.valamar.com/en/camping/camping-bunculuka-baska",
     featured: true,
     featuredRank: 3,
@@ -391,8 +390,8 @@ export const places: Place[] = [
     affiliateLabel: "Book Baldarin",
     affiliateUrl: "https://www.booking.com/searchresults.html?ss=Camping+Baldarin+Cres",
     imageGradient: "from-teal-500 via-cyan-300 to-lime-200",
-    imageUrl: commons("thumb/7/7f/Cres_03.jpg/1280px-Cres_03.jpg"),
-    imageCredit: creditCommons("Alexander Leisser", "CC BY-SA 4.0", "Cres island coast (Baldarin is on southern Cres)"),
+    imageUrl: commons("thumb/1/11/Another_five-star_beach.jpg/1280px-Another_five-star_beach.jpg"),
+    imageCredit: creditCommons("Oana Bacanu", "CC BY 2.0", "Cove on Cres near Baldarin / Punta Križa"),
   },
   {
     id: "9",
@@ -438,8 +437,8 @@ export const places: Place[] = [
     nearBeach: true,
     location: "Novalja, Pag",
     locationHr: "Novalja, Pag",
-    lat: 44.5389,
-    lng: 14.8822,
+    lat: 44.5406,
+    lng: 14.8835,
     rating: 4.3,
     shortDescription:
       "Large Pag island camp with a dedicated naturist/FKK beach section and full holiday-park amenities.",
@@ -551,8 +550,8 @@ export const places: Place[] = [
     affiliateLabel: "Stay Vodice / Tribunj",
     affiliateUrl: "https://www.booking.com/searchresults.html?ss=Tribunj",
     imageGradient: "from-cyan-400 via-teal-300 to-yellow-100",
-    imageUrl: commons("thumb/5/5d/Tribunj.jpg/1280px-Tribunj.jpg"),
-    imageCredit: creditCommons("Sztudva Gyöngyi", "CC BY-SA 3.0", "Tribunj town/bay (near Sovlje)"),
+    imageUrl: commons("thumb/b/b8/Pasman_camp_Sovinje_-_panoramio.jpg/1280px-Pasman_camp_Sovinje_-_panoramio.jpg"),
+    imageCredit: creditCommons("Richard8877", "CC BY 3.0", "Sovinje Beach landscape (Commons Category:Sovinje Beach)"),
   },
   {
     id: "14",
@@ -566,8 +565,8 @@ export const places: Place[] = [
     nearBeach: true,
     location: "Šibenik",
     locationHr: "Šibenik",
-    lat: 43.6975,
-    lng: 15.883,
+    lat: 43.6957,
+    lng: 15.8843,
     rating: 4.2,
     shortDescription:
       "Clothing-optional rocky coves near the Solaris resort zone south of Šibenik — handy for hotel guests.",
@@ -583,8 +582,8 @@ export const places: Place[] = [
     affiliateLabel: "Book Šibenik stay",
     affiliateUrl: "https://www.booking.com/searchresults.html?ss=Solaris+%C5%A0ibenik",
     imageGradient: "from-sky-500 via-indigo-300 to-amber-200",
-    imageUrl: commons("thumb/5/59/Sibenik_coast.jpg/1280px-Sibenik_coast.jpg"),
-    imageCredit: creditCommons("Zvone00", "CC BY-SA 4.0", "Šibenik coastline near Solaris zone"),
+    imageUrl: commons("thumb/7/7e/Solaris_%C5%A0ibenik_cloudy_beach.jpg/1280px-Solaris_%C5%A0ibenik_cloudy_beach.jpg"),
+    imageCredit: creditCommons("Panek", "CC BY-SA 3.0", "Solaris resort beach, Šibenik"),
   },
   {
     id: "15",
@@ -615,8 +614,8 @@ export const places: Place[] = [
     affiliateLabel: "Reserve Mon Perin",
     affiliateUrl: "https://www.booking.com/searchresults.html?ss=Camping+Mon+Perin+Bale",
     imageGradient: "from-yellow-300 via-lime-300 to-cyan-300",
-    imageUrl: osmStaticMapUrl(45.0178, 13.7137),
-    imageCredit: osmMapCredit("San Polo Bay / Mon Perin area (Bale)"),
+    imageUrl: commons("thumb/3/30/Coast_Of_Barbariga_Ii_%28157212579%29.jpeg/1280px-Coast_Of_Barbariga_Ii_%28157212579%29.jpeg"),
+    imageCredit: creditCommons("Ondrej Vranka", "CC BY 3.0", "Barbariga coast near Bale / Mon Perin–San Polo"),
     officialUrl: "https://www.monperin.hr",
   },
   {
@@ -631,8 +630,8 @@ export const places: Place[] = [
     nearBeach: true,
     location: "Pula",
     locationHr: "Pula",
-    lat: 44.9007,
-    lng: 13.8117,
+    lat: 44.833,
+    lng: 13.843,
     rating: 4.1,
     shortDescription:
       "Local Pula beach area with a traditionally freer far section popular among naturist-minded visitors.",
@@ -648,8 +647,8 @@ export const places: Place[] = [
     affiliateLabel: "Stay in Pula",
     affiliateUrl: "https://www.booking.com/searchresults.html?ss=Pula",
     imageGradient: "from-rose-300 via-sky-300 to-cyan-400",
-    imageUrl: commons("b/b9/Pula_Punta_Verudela.JPG"),
-    imageCredit: creditCommons("Orlovic", "CC BY-SA 3.0", "Punta Verudela, Pula (near Hidrobaza)"),
+    imageUrl: commons("4/48/Pulska_pla%C5%BEa_-_panoramio.jpg"),
+    imageCredit: creditCommons("Igor Palic", "CC BY-SA 3.0", "Rocky Pula shoreline (Verudela / Hidrobaza area)"),
   },
   // ——— New places ———
   {
@@ -662,10 +661,10 @@ export const places: Place[] = [
     dressCode: "naturist",
     petsAllowed: true,
     nearBeach: true,
-    location: "Poreč, Istria",
-    locationHr: "Poreč, Istra",
-    lat: 45.2882,
-    lng: 13.586,
+    location: "Tar / Lanterna, Poreč",
+    locationHr: "Tar / Lanterna, Poreč",
+    lat: 45.2911,
+    lng: 13.5846,
     rating: 4.6,
     shortDescription:
       "Dedicated naturist camp on the Poreč riviera with pebble beach, mobile homes and a relaxed family atmosphere.",
@@ -697,8 +696,8 @@ export const places: Place[] = [
     affiliateLabel: "Book Solaris Poreč",
     affiliateUrl: "https://www.booking.com/searchresults.html?ss=Camping+Solaris+Pore%C4%8D",
     imageGradient: "from-cyan-400 via-sky-300 to-lime-200",
-    imageUrl: commons("thumb/6/6d/Pore%C4%8D.jpg/1280px-Pore%C4%8D.jpg"),
-    imageCredit: creditCommons("Viktar Palstsiuk", "CC BY-SA 4.0", "Poreč old town / riviera (near Solaris Poreč)"),
+    imageUrl: commons("thumb/6/65/Pore%C4%8D%2C_the_beach_of_the_hotel_Parentium.jpg/1280px-Pore%C4%8D%2C_the_beach_of_the_hotel_Parentium.jpg"),
+    imageCredit: creditCommons("Dguendel", "CC BY 3.0", "Parentium beach shoreline, Poreč riviera"),
     officialUrl: "https://www.campingsolaris.com",
   },
   {
@@ -786,8 +785,8 @@ export const places: Place[] = [
     nearBeach: true,
     location: "Baška Voda, Makarska Riviera",
     locationHr: "Baška Voda, Makarska rivijera",
-    lat: 43.357,
-    lng: 16.95,
+    lat: 43.35,
+    lng: 16.952,
     rating: 4.3,
     shortDescription:
       "Small marked naturist pebble stretch on the Makarska Riviera near Baška Voda — convenient for riviera hotel guests.",
@@ -848,10 +847,10 @@ export const places: Place[] = [
     dressCode: "clothing-optional",
     petsAllowed: true,
     nearBeach: true,
-    location: "Trogir area",
-    locationHr: "Područje Trogira",
-    lat: 43.4922,
-    lng: 16.2077,
+    location: "Okrug / Čiovo (Trogir)",
+    locationHr: "Okrug / Čiovo (Trogir)",
+    lat: 43.4872,
+    lng: 16.2898,
     rating: 4.2,
     shortDescription:
       "Popular clothing-optional / freer beach near Trogir — rocky entry, local summer crowd, easy day trip from Split airport corridor.",
@@ -867,8 +866,8 @@ export const places: Place[] = [
     affiliateLabel: "Stay in Trogir",
     affiliateUrl: "https://www.booking.com/searchresults.html?ss=Trogir",
     imageGradient: "from-teal-400 via-cyan-300 to-amber-200",
-    imageUrl: commons("thumb/5/5d/Croatia-01151_-_Coastline_near_Trogir_%289549247080%29.jpg/1280px-Croatia-01151_-_Coastline_near_Trogir_%289549247080%29.jpg"),
-    imageCredit: creditCommons("Dennis G. Jarvis", "CC BY-SA 2.0", "Coastline near Trogir (Kava area)"),
+    imageUrl: commons("thumb/b/b4/Okrug_Gornji%2C_Croatia_-_panoramio_%283%29.jpg/1280px-Okrug_Gornji%2C_Croatia_-_panoramio_%283%29.jpg"),
+    imageCredit: creditCommons("Kris Sliver", "CC BY-SA 3.0", "Okrug Gornji / Čiovo coast (Kava / Mala Draga area)"),
   },
   {
     id: "23",
@@ -886,21 +885,21 @@ export const places: Place[] = [
     lng: 14.3984,
     rating: 4.3,
     shortDescription:
-      "Naturist-friendly camp near Lopar on Rab with sandy-pebble shores and a quieter alternative to town beaches.",
+      "Naturist-friendly camp near Nerezine on Lošinj with pebble shores and a quieter alternative to busy island towns.",
     shortDescriptionHr:
-      "Naturistički orijentiran kamp kod Lopara na Rabu s pjeskovito-šljunčanim obalama i mirnijom alternativom gradskim plažama.",
+      "Naturistički orijentiran kamp kod Nerezina na Lošinju sa šljunčanim obalama i mirnijom alternativom užurbanim otočnim mjestima.",
     guide:
-      "Rapoća suits Rab visitors who want camping near Lopar’s famously sandy stretches while keeping a freer beach option. Confirm which zones are naturist on arrival. Combine with a boat day to Kandarola (Sahara) and evenings in Rab town. Pets often welcome — verify current rules.",
+      "Rapoća Camping Village sits by Uvala Rapoca near Nerezine on Lošinj. Confirm which zones are naturist on arrival. Combine with ferry hops toward Cres/Rab and evenings in Mali Lošinj. Pets often welcome — verify current rules.",
     guideHr:
-      "Rapoća odgovara gostima Raba koji žele kampiranje blizu poznatih pjeskovitih dijelova Lopara uz slobodniju opciju plaže. Na dolasku potvrdite koje zone su naturističke. Spojite s brodskim danom do Kandarole (Sahara) i večerima u gradu Rabu. Ljubimci često dobrodošli — provjerite aktualna pravila.",
+      "Rapoća Camping Village leži uz uvalu Rapoca kod Nerezina na Lošinju. Na dolasku potvrdite koje zone su naturističke. Spojite s trajektnim skokovima prema Cresu/Rabu i večerima u Malom Lošinju. Ljubimci često dobrodošli — provjerite aktualna pravila.",
     amenities: ["Camping", "Beach", "Pets", "Sanitary", "Shop"],
     amenitiesHr: ["Kamp", "Plaža", "Ljubimci", "Sanitarije", "Trgovina"],
     relatedSlugs: ["kandarola", "baldarin", "bunculuka", "strasko"],
     affiliateLabel: "Book Rapoća",
-    affiliateUrl: "https://www.booking.com/searchresults.html?ss=Camping+Rapo%C4%87a+Rab",
+    affiliateUrl: "https://www.booking.com/searchresults.html?ss=Camping+Rapo%C4%87a+Nerezine",
     imageGradient: "from-lime-400 via-teal-300 to-sky-200",
-    imageUrl: commons("thumb/1/1e/Lopar_San_Marino_strand-Own_Photo-Antal_Aron_Gyula-GFDL.jpg/1280px-Lopar_San_Marino_strand-Own_Photo-Antal_Aron_Gyula-GFDL.jpg"),
-    imageCredit: creditCommons("Antal Áron Gyula", "CC BY-SA 3.0", "Lopar / San Marino beach, Rab (near Rapoća)"),
+    imageUrl: commons("thumb/a/ab/Lopar_-_Paradise_Beach_-_panoramio.jpg/1280px-Lopar_-_Paradise_Beach_-_panoramio.jpg"),
+    imageCredit: creditCommons("Zoran Kurelić Rabko", "CC BY-SA 3.0", "Paradise Beach, Lopar (Kvarner sandy shore near Rapoća circuit)"),
   },
   {
     id: "24",
@@ -914,8 +913,8 @@ export const places: Place[] = [
     nearBeach: true,
     location: "Stara Baška, Krk",
     locationHr: "Stara Baška, Krk",
-    lat: 44.958,
-    lng: 14.6885,
+    lat: 44.965,
+    lng: 14.6772,
     rating: 4.4,
     shortDescription:
       "Wild rocky coves near Stara Baška on Krk — quieter clothing-optional pockets, dramatic karst scenery.",
