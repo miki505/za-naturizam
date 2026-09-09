@@ -7,12 +7,27 @@ TripAdvisor-style **AI tourist guide** for naturists and clothing-optional trave
 ## Features (MVP)
 
 - Marketing landing with **Croatian primary** + English toggle
-- Searchable / filterable **place directory** (Istria, Kvarner, Dalmatia seed data)
-- **Place detail** pages with guide, amenities, map link, affiliate Book/Reserve placeholders
+- Searchable / filterable **place directory** (Istria, Kvarner, Dalmatia)
+- **Place detail** pages with guide, amenities, map link, official site, affiliate CTAs
 - **AI Travel Assistant** chat UI — client-side stub over seed data (no LLM API)
 - **Premium teaser** — offline maps + advanced filters (UI only)
 - **Clean Community** — respect rules, placeholder feed / join CTA (no auth)
-- Monetization scaffolding via affiliate CTAs per place
+- **Featured / paid partner spotlight** — subscription partners sort to the top of the directory and appear on the homepage with sponsored offers (demo partners; no real payments)
+- Monetization scaffolding via affiliate CTAs + partner offers per place
+
+## Featured partners
+
+Partners who pay a subscription get:
+
+1. **Featured badge** on cards and detail pages  
+2. **Top-of-directory** sorting (`featuredRank`, lower = higher)  
+3. **Homepage “Istaknute ponude / Featured offers”** section with custom CTAs  
+
+Demo partners in seed data: **Valalta** (rank 1), **Koversada** (rank 2), **Bunculuka** (rank 3). See `/partners` for the subscription UI mock (“Kontaktirajte nas” — no checkout).
+
+## Images & credits
+
+Place photos use **royalty-free Unsplash** Adriatic / beach / camp images via stable `images.unsplash.com` URLs. Credits are stored on each place (`imageCredit`) and note when the photo is **illustrative** (not a property marketing shot). Do not hotlink hotel gallery scrapes.
 
 ## Tech stack
 
@@ -41,7 +56,7 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ## Seed coverage
 
-~16 real Croatian places including Koversada, Valalta, Ulika, Bunculuka, Baldarin, Kandarola, Nugal, Kašjuni, and more. Filters: region, type, dress code, pets, near beach.
+~24 real Croatian FKK / clothing-optional places including Koversada, Valalta, Ulika, Solaris Poreč, Arena Kažela, Bunculuka, Baldarin, Glavotok, Kandarola, Straško, Metajna, Nugal, Kašjuni, Pakleni/Ždrilca, Baška Voda FKK, and more. Filters: region, type, dress code, pets, near beach. Sorting: featured partners first, then rating.
 
 ## AI assistant note
 
@@ -60,6 +75,7 @@ Real scraping, live LLM, payments, auth, native apps, world coverage beyond Croa
 - Wire a real LLM + retrieval over the place catalog
 - Auth + Clean Community feed moderation
 - Live weather / maps SDKs
+- Real partner billing for featured subscriptions
 - Affiliate network IDs and conversion tracking
 - Expand seed data beyond Croatia
 

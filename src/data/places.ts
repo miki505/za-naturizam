@@ -1,5 +1,60 @@
 import type { Place } from "@/types";
 
+/** Illustrative Adriatic / beach / camp Unsplash URLs (royalty-free). Not property-specific. */
+const img = {
+  peninsula:
+    "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80",
+  turquoise:
+    "https://images.unsplash.com/photo-1559827260-dc66d52bef19?auto=format&fit=crop&w=1200&q=80",
+  oliveCoast:
+    "https://images.unsplash.com/photo-1519046904884-4511b0e0e4e6?auto=format&fit=crop&w=1200&q=80",
+  rockyCove:
+    "https://images.unsplash.com/photo-1473116763249-2faaef81ccda?auto=format&fit=crop&w=1200&q=80",
+  pebbleBay:
+    "https://images.unsplash.com/photo-1506953823976-10e95e1a4e6f?auto=format&fit=crop&w=1200&q=80",
+  pineCamp:
+    "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=1200&q=80",
+  clearWater:
+    "https://images.unsplash.com/photo-1505118380757-91f5f5632de0?auto=format&fit=crop&w=1200&q=80",
+  islandShore:
+    "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1200&q=80",
+  cliffBeach:
+    "https://images.unsplash.com/photo-1468413253725-0d5181091126?auto=format&fit=crop&w=1200&q=80",
+  campShade:
+    "https://images.unsplash.com/photo-1523987355523-c7b5b0dd90a7?auto=format&fit=crop&w=1200&q=80",
+  sunsetCoast:
+    "https://images.unsplash.com/photo-1437719417032-8595fd9e9dc6?auto=format&fit=crop&w=1200&q=80",
+  aerialBay:
+    "https://images.unsplash.com/photo-1483683804023-6ccdb62f86ef?auto=format&fit=crop&w=1200&q=80",
+  dalmatia:
+    "https://images.unsplash.com/photo-1555990793-da11153b2473?auto=format&fit=crop&w=1200&q=80",
+  cityBeach:
+    "https://images.unsplash.com/photo-1510414842594-a61c695b4b2e?auto=format&fit=crop&w=1200&q=80",
+  quietCove:
+    "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=70",
+  resortPool:
+    "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1200&q=80",
+  windCoast:
+    "https://images.unsplash.com/photo-1493558103817-58b2924bce98?auto=format&fit=crop&w=1200&q=80",
+  hvarIslands:
+    "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=80",
+  makarska:
+    "https://images.unsplash.com/photo-1533106497176-45ae19e68ba2?auto=format&fit=crop&w=1200&q=80",
+  campingTent:
+    "https://images.unsplash.com/photo-1478131143081-80f7f84ca84d?auto=format&fit=crop&w=1200&q=80",
+  croatiaCoast:
+    "https://images.unsplash.com/photo-1605649487212-47bdab064df7?auto=format&fit=crop&w=1200&q=80",
+  blueLagoon:
+    "https://images.unsplash.com/photo-1519046904884-4511b0e0e4e6?auto=format&fit=crop&w=1100&q=80",
+  pebbles:
+    "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1100&q=75",
+  forestCamp:
+    "https://images.unsplash.com/photo-1504851149312-7a075b496cc7?auto=format&fit=crop&w=1200&q=80",
+} as const;
+
+const credit = (note: string) =>
+  `Photo: Unsplash — illustrative coastal photo (${note})`;
+
 export const places: Place[] = [
   {
     id: "1",
@@ -17,19 +72,65 @@ export const places: Place[] = [
     lng: 13.6058,
     rating: 4.7,
     shortDescription:
-      "Europe's pioneering naturist resort on a private peninsula near Vrsar, with beaches, camping and apartments.",
+      "Europe’s pioneering Adriatic naturist resort on a private peninsula near Vrsar — beaches, camping, apartments and a full summer village.",
     shortDescriptionHr:
-      "Pionierski europski naturistički resort na privatnom poluotoku kod Vrsara, s plažama, kampom i apartmanima.",
+      "Pionierski jadranski naturistički resort na privatnom poluotoku kod Vrsara — plaže, kamp, apartmani i potpuno ljetno naselje.",
     guide:
-      "Koversada is often cited as the birthplace of organised naturism on the Adriatic. Expect a full resort feel: pebble beaches, pine shade, restaurants, sports courts and a calm community vibe. Ideal for a multi-day stay with easy day trips to Rovinj and Poreč. Book seaside pitches early in July–August.",
+      "Koversada helped put organised Adriatic naturism on the map. Expect pebble shores, pine shade, restaurants, sports courts and a settled multi-day crowd. Day trips to Rovinj and Poreč are easy. Seaside pitches and apartments sell out in July–August; May–June and September are warmer in the water and quieter on site. Part of the Maistra portfolio — check current pitch maps and pet rules before you book.",
     guideHr:
-      "Koversada se često smatra kolijevkom organiziranog naturizma na Jadranu. Očekujte potpuni resort doživljaj: šljunčane plaže, borovu hladovinu, restorane, sportske terene i mirnu zajednicu. Idealno za višednevni boravak uz izlete do Rovinja i Poreča. Obalne parcele rezervirajte rano u srpnju i kolovozu.",
-    amenities: ["Beach", "Camping", "Apartments", "Restaurant", "Sports", "Shop", "Pets"],
-    amenitiesHr: ["Plaža", "Kamp", "Apartmani", "Restoran", "Sport", "Trgovina", "Ljubimci"],
-    relatedSlugs: ["valalta", "ulika", "kamenjak"],
+      "Koversada je pomogla staviti organizirani jadranski naturizam na kartu. Očekujte šljunčane obale, borovu hladovinu, restorane, sportske terene i ustaljenu višednevnu publiku. Izleti do Rovinja i Poreča su laki. Obalne parcele i apartmani nestaju u srpnju–kolovozu; svibanj–lipanj i rujan topliji su u moru i mirniji na lokaciji. Dio Maistra portfelja — provjerite aktualne karte parcela i pravila za ljubimce prije rezervacije.",
+    amenities: [
+      "Beach",
+      "Camping",
+      "Apartments",
+      "Restaurant",
+      "Sports",
+      "Shop",
+      "Pets",
+      "Sanitary",
+    ],
+    amenitiesHr: [
+      "Plaža",
+      "Kamp",
+      "Apartmani",
+      "Restoran",
+      "Sport",
+      "Trgovina",
+      "Ljubimci",
+      "Sanitarije",
+    ],
+    relatedSlugs: ["valalta", "ulika", "kamenjak", "solaris-porec"],
     affiliateLabel: "Check availability",
     affiliateUrl: "https://www.booking.com/searchresults.html?ss=Koversada+Vrsar",
     imageGradient: "from-sky-400 via-cyan-300 to-amber-200",
+    imageUrl: img.peninsula,
+    imageCredit: credit("Adriatic peninsula / resort vibe"),
+    officialUrl: "https://www.maistra.com/camps/camping-koversada",
+    featured: true,
+    featuredRank: 2,
+    featuredLabel: "Partner",
+    sponsoredOffers: [
+      {
+        title: "Early-bird pitch discount",
+        titleHr: "Early-bird popust na parcelu",
+        description: "Partner offer: seasonal discount on selected seaside pitches when you book early.",
+        descriptionHr:
+          "Partnerska ponuda: sezonski popust na odabrane obalne parcele uz ranu rezervaciju.",
+        ctaLabel: "View partner offer",
+        ctaLabelHr: "Pogledaj partnersku ponudu",
+        url: "https://www.maistra.com/camps/camping-koversada",
+      },
+      {
+        title: "Free upgrade weekdays",
+        titleHr: "Besplatni upgrade radnim danima",
+        description: "Ask about complimentary pitch/apartment upgrades on selected midweek stays.",
+        descriptionHr:
+          "Pitajte za besplatni upgrade parcele/apartmana na odabranim boravcima radnim danima.",
+        ctaLabel: "Ask partner",
+        ctaLabelHr: "Pitaj partnera",
+        url: "https://www.maistra.com/camps/camping-koversada",
+      },
+    ],
   },
   {
     id: "2",
@@ -47,19 +148,67 @@ export const places: Place[] = [
     lng: 13.618,
     rating: 4.8,
     shortDescription:
-      "Large, well-equipped naturist camp north of Rovinj with pools, marina access and family facilities.",
+      "Large, highly rated naturist camp north of Rovinj with pools, long shoreline, marina access and strong family facilities.",
     shortDescriptionHr:
-      "Veliki, dobro opremljen naturistički kamp sjeverno od Rovinja s bazenima, pristupom marini i sadržajima za obitelji.",
+      "Veliki, visoko ocijenjeni naturistički kamp sjeverno od Rovinja s bazenima, dugom obalom, pristupom marini i jakim sadržajima za obitelji.",
     guide:
-      "Valalta combines camping and mobile homes with a long naturist shoreline. Strong pick if you want pets, kids' animation and proximity to Rovinj's old town (short drive or seasonal boat). Pitches near the sea go fast; shoulder season (May–June, September) is quieter and warmer for swimming.",
+      "Valalta mixes camping, mobile homes and apartments along a long naturist shoreline. Strong pick for pets, kids’ animation and quick access to Rovinj’s old town (short drive or seasonal boat). Book sea-view pitches early. Shoulder season (May–June, September) is quieter with comfortable swimming temperatures. Official site lists current wellness, marina and restaurant hours.",
     guideHr:
-      "Valalta spaja kampiranje i mobilne kućice s dugom naturističkom obalom. Odličan izbor ako želite kućne ljubimce, animaciju za djecu i blizinu starog Rovinja (kratka vožnja ili sezonski brod). Parcele uz more brzo nestaju; predsezona (svibanj–lipanj, rujan) mirnija je i ugodna za kupanje.",
-    amenities: ["Beach", "Pool", "Camping", "Mobile homes", "Restaurant", "Pets", "Animation"],
-    amenitiesHr: ["Plaža", "Bazen", "Kamp", "Mobilne kućice", "Restoran", "Ljubimci", "Animacija"],
-    relatedSlugs: ["koversada", "ulika", "glavotok"],
+      "Valalta spaja kampiranje, mobilne kućice i apartmane uz dugu naturističku obalu. Odličan izbor za ljubimce, animaciju za djecu i brz pristup starom Rovinju (kratka vožnja ili sezonski brod). Parcele s pogledom na more rezervirajte rano. Predsezona (svibanj–lipanj, rujan) mirnija je uz ugodne temperature mora. Službene stranice navode aktualne sate wellnessa, marine i restorana.",
+    amenities: [
+      "Beach",
+      "Pool",
+      "Camping",
+      "Mobile homes",
+      "Restaurant",
+      "Pets",
+      "Animation",
+      "Wellness",
+      "Marina",
+    ],
+    amenitiesHr: [
+      "Plaža",
+      "Bazen",
+      "Kamp",
+      "Mobilne kućice",
+      "Restoran",
+      "Ljubimci",
+      "Animacija",
+      "Wellness",
+      "Marina",
+    ],
+    relatedSlugs: ["koversada", "ulika", "glavotok", "mon-perin"],
     affiliateLabel: "Reserve stay",
     affiliateUrl: "https://www.booking.com/searchresults.html?ss=Valalta+Rovinj",
     imageGradient: "from-teal-400 via-sky-300 to-yellow-200",
+    imageUrl: img.turquoise,
+    imageCredit: credit("clear Adriatic water / camp shoreline"),
+    officialUrl: "https://www.valalta.hr",
+    featured: true,
+    featuredRank: 1,
+    featuredLabel: "Partner",
+    sponsoredOffers: [
+      {
+        title: "Wellness & spa credit",
+        titleHr: "Wellness & spa kredit",
+        description: "Partner offer: complimentary spa credit on selected mobile-home packages.",
+        descriptionHr:
+          "Partnerska ponuda: gratis spa kredit uz odabrane pakete mobilnih kućica.",
+        ctaLabel: "See wellness offer",
+        ctaLabelHr: "Pogledaj wellness ponudu",
+        url: "https://www.valalta.hr",
+      },
+      {
+        title: "Seasonal family discount",
+        titleHr: "Sezonski obiteljski popust",
+        description: "Save on multi-night family stays outside peak July weeks — clearly labeled partner promo.",
+        descriptionHr:
+          "Uštedite na višenoćnim obiteljskim boravcima izvan vrhunca srpnja — jasno označena partnerska promo.",
+        ctaLabel: "Claim partner deal",
+        ctaLabelHr: "Iskoristi partnersku akciju",
+        url: "https://www.valalta.hr",
+      },
+    ],
   },
   {
     id: "3",
@@ -77,19 +226,30 @@ export const places: Place[] = [
     lng: 13.574,
     rating: 4.5,
     shortDescription:
-      "Quiet naturist camp on the Lanterna peninsula near Poreč, known for olive trees and a sheltered bay.",
+      "Quiet naturist camp on the Lanterna peninsula near Poreč — olive shade, a sheltered bay and a calmer pace than mega-resorts.",
     shortDescriptionHr:
-      "Mirni naturistički kamp na poluotoku Lanterna kod Poreča, poznat po maslinama i zaklonjenom zaljevu.",
+      "Mirni naturistički kamp na poluotoku Lanterna kod Poreča — maslinova hladovina, zaklonjeni zaljev i mirniji ritam od mega-resorta.",
     guide:
-      "Ulika is calmer and more intimate than the mega-resorts. Great for couples and pet owners who want shade, a pebble beach and easy access to Poreč. Combine with wine tasting inland and evening strolls on the Poreč riviera in textile areas.",
+      "Ulika suits couples and pet owners who want shade, pebble swimming and an easy hop into Poreč. Smaller and more intimate than Valalta or Koversada. Pair with inland wine tastings and textile evenings on the Poreč riviera. Confirm sanitary blocks and shop hours for shoulder season.",
     guideHr:
-      "Ulika je mirnija i intimnija od velikih resorta. Odlična za parove i vlasnike ljubimaca koji žele hladovinu, šljunčanu plažu i lak pristup Poreču. Spojite s degustacijom vina u unutrašnjosti i večernjim šetnjama porečkom rivijerom u tekstilnim zonama.",
-    amenities: ["Beach", "Camping", "Shade", "Pets", "Shop", "Sanitary"],
-    amenitiesHr: ["Plaža", "Kamp", "Hladovina", "Ljubimci", "Trgovina", "Sanitarije"],
-    relatedSlugs: ["valalta", "koversada", "kamenjak"],
+      "Ulika odgovara parovima i vlasnicima ljubimaca koji žele hladovinu, šljunčano kupanje i lak skok u Poreč. Manja i intimnija od Valalte ili Koversade. Spojite s degustacijama vina u unutrašnjosti i tekstilnim večerima na porečkoj rivijeru. Potvrdite sanitarije i radno vrijeme trgovine u predsezoni.",
+    amenities: ["Beach", "Camping", "Shade", "Pets", "Shop", "Sanitary", "Olive grove"],
+    amenitiesHr: [
+      "Plaža",
+      "Kamp",
+      "Hladovina",
+      "Ljubimci",
+      "Trgovina",
+      "Sanitarije",
+      "Maslinik",
+    ],
+    relatedSlugs: ["valalta", "koversada", "solaris-porec", "kamenjak"],
     affiliateLabel: "Book camp",
     affiliateUrl: "https://www.booking.com/searchresults.html?ss=Camping+Ulika+Pore%C4%8D",
     imageGradient: "from-lime-400 via-emerald-300 to-sky-200",
+    imageUrl: img.oliveCoast,
+    imageCredit: credit("olive-coast / sheltered bay mood"),
+    officialUrl: "https://www.maistra.com/camps/camping-ulika",
   },
   {
     id: "4",
@@ -107,19 +267,28 @@ export const places: Place[] = [
     lng: 13.913,
     rating: 4.6,
     shortDescription:
-      "Wild protected peninsula with rocky coves; several spots are clothing-optional among naturist visitors.",
+      "Wild protected peninsula south of Pula with rocky coves; several quieter spots are clothing-optional among naturist visitors.",
     shortDescriptionHr:
-      "Divlji zaštićeni poluotok sa stjenovitim uvalama; nekoliko mjesta je clothing-optional među naturističkim posjetiteljima.",
+      "Divlji zaštićeni poluotok južno od Pule sa stjenovitim uvalama; nekoliko mirnijih mjesta clothing-optional je među naturističkim posjetiteljima.",
     guide:
-      "Kamenjak is a nature park day destination rather than a resort. Bring water, shade and cash for the entrance fee. Look for quieter southern coves; respect local norms and keep distance from family textile beaches. Pair with overnight in Premantura or Pula.",
+      "Kamenjak is a nature-park day trip, not a resort. Bring water, shade and cash for the entrance fee. Prefer quieter southern coves; keep clear of busy family textile beaches. Overnight in Premantura or Pula. Sturdy shoes help on karst rock.",
     guideHr:
-      "Kamenjak je park prirode za dnevni izlet, ne resort. Ponijete vodu, hladovinu i gotovinu za ulaznicu. Tražite mirnije južne uvale; poštujte lokalne norme i držite distancu od obiteljskih tekstilnih plaža. Spojite s noćenjem u Premanturi ili Puli.",
-    amenities: ["Wild beach", "Snorkeling", "Hiking", "Parking", "Pets"],
-    amenitiesHr: ["Divlja plaža", "Snorkanje", "Pješačenje", "Parking", "Ljubimci"],
-    relatedSlugs: ["koversada", "ulika", "valalta"],
+      "Kamenjak je park prirode za dnevni izlet, ne resort. Ponijete vodu, hladovinu i gotovinu za ulaznicu. Birajte mirnije južne uvale; držite se podalje od gužvih obiteljskih tekstilnih plaža. Noćenje u Premanturi ili Puli. Čvrsta obuća pomaže na kršu.",
+    amenities: ["Wild beach", "Snorkeling", "Hiking", "Parking", "Pets", "Nature park"],
+    amenitiesHr: [
+      "Divlja plaža",
+      "Snorkanje",
+      "Pješačenje",
+      "Parking",
+      "Ljubimci",
+      "Park prirode",
+    ],
+    relatedSlugs: ["koversada", "ulika", "pula-hidrobaza", "kazela"],
     affiliateLabel: "Find nearby stay",
     affiliateUrl: "https://www.booking.com/searchresults.html?ss=Premantura",
     imageGradient: "from-blue-500 via-cyan-400 to-stone-300",
+    imageUrl: img.rockyCove,
+    imageCredit: credit("rocky Istrian cove"),
   },
   {
     id: "5",
@@ -137,19 +306,44 @@ export const places: Place[] = [
     lng: 14.755,
     rating: 4.6,
     shortDescription:
-      "Scenic naturist camp in a cove near Baška on Krk island, famous for clear water and pebble beach.",
+      "Scenic Valamar naturist camp in a cove near Baška on Krk — clear water, pebble beach and dramatic hills.",
     shortDescriptionHr:
-      "Slikoviti naturistički kamp u uvali kod Baške na otoku Krku, poznat po bistrom moru i šljunčanoj plaži.",
+      "Slikoviti Valamar naturistički kamp u uvali kod Baške na Krku — bistro more, šljunčana plaža i dramatična brda.",
     guide:
-      "Bunculuka sits in a dramatic cove a short walk or shuttle from Baška's main beach. Excellent swimming, limited shade on the beach itself — bring a parasol. Note: pets are typically not accepted; check current rules before booking. Great base for hiking the Baška trails.",
+      "Bunculuka sits in a dramatic cove a short walk or shuttle from Baška’s main beach. Excellent swimming; beach shade is limited — bring a parasol. Pets are typically not accepted (confirm current Valamar rules). Great base for Baška hiking trails. Book early for July–August seafront pitches.",
     guideHr:
-      "Bunculuka leži u dramatičnoj uvali, kratka šetnja ili shuttle od glavne baščanske plaže. Odlično kupanje, malo hladovine na samoj plaži — ponijete suncobran. Napomena: kućni ljubimci obično nisu dozvoljeni; provjerite aktualna pravila. Odlična baza za pješačenje stazama Baške.",
-    amenities: ["Beach", "Camping", "Restaurant", "Sanitary", "Shop"],
-    amenitiesHr: ["Plaža", "Kamp", "Restoran", "Sanitarije", "Trgovina"],
-    relatedSlugs: ["glavotok", "konobe", "baldarin"],
+      "Bunculuka leži u dramatičnoj uvali, kratka šetnja ili shuttle od glavne baščanske plaže. Odlično kupanje; hladovine na plaži ima malo — ponijete suncobran. Ljubimci obično nisu dozvoljeni (potvrdite aktualna Valamar pravila). Odlična baza za baščanske staze. Rano rezervirajte srpanj–kolovoz obalne parcele.",
+    amenities: ["Beach", "Camping", "Restaurant", "Sanitary", "Shop", "Hiking nearby"],
+    amenitiesHr: [
+      "Plaža",
+      "Kamp",
+      "Restoran",
+      "Sanitarije",
+      "Trgovina",
+      "Pješačenje u blizini",
+    ],
+    relatedSlugs: ["glavotok", "konobe", "baldarin", "stara-baska"],
     affiliateLabel: "Book Bunculuka",
     affiliateUrl: "https://www.booking.com/searchresults.html?ss=Bunculuka+Ba%C5%A1ka",
     imageGradient: "from-indigo-400 via-sky-300 to-amber-100",
+    imageUrl: img.pebbleBay,
+    imageCredit: credit("pebble cove / clear water"),
+    officialUrl: "https://www.valamar.com/en/camping/camping-bunculuka-baska",
+    featured: true,
+    featuredRank: 3,
+    featuredLabel: "Partner",
+    sponsoredOffers: [
+      {
+        title: "Free late checkout",
+        titleHr: "Besplatni late check-out",
+        description: "Partner offer: complimentary late checkout on selected stays of 7+ nights.",
+        descriptionHr:
+          "Partnerska ponuda: besplatni late check-out na odabranim boravcima od 7+ noći.",
+        ctaLabel: "View offer",
+        ctaLabelHr: "Pogledaj ponudu",
+        url: "https://www.valamar.com/en/camping/camping-bunculuka-baska",
+      },
+    ],
   },
   {
     id: "6",
@@ -167,19 +361,21 @@ export const places: Place[] = [
     lng: 14.43,
     rating: 4.4,
     shortDescription:
-      "Forest camp on western Krk with a naturist/clothing-optional shoreline section and pet-friendly pitches.",
+      "Forest camp on western Krk with a naturist/clothing-optional shoreline section and pet-friendly pitches under pines.",
     shortDescriptionHr:
-      "Šumski kamp na zapadnom Krku s naturističkom/clothing-optional obalom i parcelama pogodnim za ljubimce.",
+      "Šumski kamp na zapadnom Krku s naturističkom/clothing-optional obalom i parcelama pogodnim za ljubimce pod borovima.",
     guide:
-      "Glavotok offers pine shade and a mix of textile and freer beach zones. Convenient if you explore Krk by car and want a quieter west-coast vibe. Confirm which beach sections are clothing-optional on arrival.",
+      "Glavotok offers pine shade and a mix of textile and freer beach zones. Convenient if you tour Krk by car and want a quieter west-coast vibe. Confirm which beach sections are clothing-optional on arrival. Pair with visits to Krk town and Punat.",
     guideHr:
-      "Glavotok nudi borovu hladovinu i mješavinu tekstilnih i slobodnijih zona plaže. Praktično ako Krk istražujete autom i želite mirniji zapadni ugođaj. Na dolasku potvrdite koje dijelove plaže možete koristiti kao clothing-optional.",
-    amenities: ["Beach", "Camping", "Forest", "Pets", "Sanitary"],
-    amenitiesHr: ["Plaža", "Kamp", "Šuma", "Ljubimci", "Sanitarije"],
-    relatedSlugs: ["bunculuka", "konobe", "valalta"],
+      "Glavotok nudi borovu hladovinu i mješavinu tekstilnih i slobodnijih zona plaže. Praktično ako Krk obilazite autom i želite mirniji zapadni ugođaj. Na dolasku potvrdite koje dijelove plaže možete koristiti kao clothing-optional. Spojite s posjetom gradu Krku i Puntu.",
+    amenities: ["Beach", "Camping", "Forest", "Pets", "Sanitary", "Shade"],
+    amenitiesHr: ["Plaža", "Kamp", "Šuma", "Ljubimci", "Sanitarije", "Hladovina"],
+    relatedSlugs: ["bunculuka", "konobe", "valalta", "stara-baska"],
     affiliateLabel: "Reserve pitch",
     affiliateUrl: "https://www.booking.com/searchresults.html?ss=Camping+Glavotok+Krk",
     imageGradient: "from-emerald-500 via-teal-300 to-sky-200",
+    imageUrl: img.pineCamp,
+    imageCredit: credit("pine forest camp / west Krk mood"),
   },
   {
     id: "7",
@@ -201,15 +397,17 @@ export const places: Place[] = [
     shortDescriptionHr:
       "Poznata naturistička plaža kod Punta s bistrom vodom, stijenama i opuštenom ljetnom publikom.",
     guide:
-      "Konobe is a day beach with limited facilities — pack water and snacks. Access is typically by car/scooter with a short walk. Good snorkeling on calm days. Stay in Punat or Krk town for evenings.",
+      "Konobe is a day beach with limited facilities — pack water and snacks. Access is typically by car or scooter with a short walk. Good snorkeling on calm days. Stay in Punat or Krk town for evenings and ferry links.",
     guideHr:
-      "Konobe je dnevna plaža s ograničenim sadržajima — ponijete vodu i grickalice. Pristup obično autom/skuterom uz kratku šetnju. Dobro snorkanje po mirnom danu. Noćenje u Puntu ili gradu Krku.",
+      "Konobe je dnevna plaža s ograničenim sadržajima — ponijete vodu i grickalice. Pristup obično autom ili skuterom uz kratku šetnju. Dobro snorkanje po mirnom danu. Noćenje u Puntu ili gradu Krku zbog večeri i trajekata.",
     amenities: ["Naturist beach", "Snorkeling", "Parking", "Pets"],
     amenitiesHr: ["Naturistička plaža", "Snorkanje", "Parking", "Ljubimci"],
-    relatedSlugs: ["bunculuka", "glavotok", "baldarin"],
+    relatedSlugs: ["bunculuka", "glavotok", "baldarin", "stara-baska"],
     affiliateLabel: "Stay near Punat",
     affiliateUrl: "https://www.booking.com/searchresults.html?ss=Punat+Krk",
     imageGradient: "from-cyan-500 via-blue-300 to-stone-200",
+    imageUrl: img.clearWater,
+    imageCredit: credit("clear rocky swimming spot"),
   },
   {
     id: "8",
@@ -231,15 +429,17 @@ export const places: Place[] = [
     shortDescriptionHr:
       "Naturistički kamp na južnom Cresu sa stjenovitim plažama, borovom šumom i snažnim free-camping ugođajem.",
     guide:
-      "Baldarin rewards travelers who want nature over nightlife. Rocky entry into deep clear water, excellent for snorkeling. Bring sturdy shoes for the shore. Pets are commonly welcome on pitches — verify season rules. Combine with visits to Osor and Lubenice.",
+      "Baldarin rewards travelers who prefer nature over nightlife. Rocky entry into deep clear water — excellent snorkeling. Bring sturdy shoes. Pets are commonly welcome on pitches; verify season rules. Combine with Osor and Lubenice day trips. Ferry planning from Krk/mainland is part of the adventure.",
     guideHr:
-      "Baldarin nagrađuje putnike koji žele prirodu umjesto noćnog života. Stjenoviti ulaz u duboko bistro more, odlično za snorkanje. Ponijete čvrstu obuću za obalu. Ljubimci su obično dobrodošli na parcelama — provjerite sezonska pravila. Spojite s posjetom Osoru i Lubenicama.",
+      "Baldarin nagrađuje putnike koji vole prirodu više od noćnog života. Stjenoviti ulaz u duboko bistro more — odlično snorkanje. Ponijete čvrstu obuću. Ljubimci su obično dobrodošli na parcelama; provjerite sezonska pravila. Spojite s izletima u Osor i Lubenice. Planiranje trajekata s Krka/kopna dio je avanture.",
     amenities: ["Beach", "Camping", "Forest", "Pets", "Snorkeling", "Shop"],
     amenitiesHr: ["Plaža", "Kamp", "Šuma", "Ljubimci", "Snorkanje", "Trgovina"],
-    relatedSlugs: ["bunculuka", "kandarola", "glavotok"],
+    relatedSlugs: ["bunculuka", "kandarola", "glavotok", "rapoca"],
     affiliateLabel: "Book Baldarin",
     affiliateUrl: "https://www.booking.com/searchresults.html?ss=Camping+Baldarin+Cres",
     imageGradient: "from-teal-500 via-cyan-300 to-lime-200",
+    imageUrl: img.islandShore,
+    imageCredit: credit("island shore / pine camp"),
   },
   {
     id: "9",
@@ -257,19 +457,21 @@ export const places: Place[] = [
     lng: 14.72,
     rating: 4.4,
     shortDescription:
-      "Historic Adriatic naturist beach on Rab, reachable by boat or trail, with a legendary free-spirited past.",
+      "Historic Adriatic naturist beach on Rab — boat or trail access, legendary free-spirited past, basic facilities.",
     shortDescriptionHr:
-      "Povijesna jadranska naturistička plaža na Rabu, dostupna brodom ili stazom, s legendarnom slobodoumnom prošlošću.",
+      "Povijesna jadranska naturistička plaža na Rabu — pristup brodom ili stazom, legendarna slobodoumna prošlost, osnovni sadržaji.",
     guide:
-      "Kandarola (Sahara) is iconic in European naturist lore. Access is often by tourist boat from Rab or a longer walk. Facilities are basic; focus on swimming and sun. Not ideal with pets. Stay in Rab town for restaurants and ferries.",
+      "Kandarola (Sahara) is iconic in European naturist lore. Reach it by tourist boat from Rab or a longer coastal walk. Facilities are basic; focus on swimming and sun. Not ideal with pets. Stay in Rab town for restaurants, ferries and evening walks.",
     guideHr:
-      "Kandarola (Sahara) ikona je europskog naturizma. Pristup često turističkim brodom s Raba ili dužom šetnjom. Sadržaji su osnovni; fokus na kupanje i sunce. Nije idealno s ljubimcima. Smještaj u gradu Rabu zbog restorana i trajekata.",
+      "Kandarola (Sahara) ikona je europskog naturizma. Dođite turističkim brodom s Raba ili dužom obalnom stazom. Sadržaji su osnovni; fokus na kupanje i sunce. Nije idealno s ljubimcima. Smještaj u gradu Rabu zbog restorana, trajekata i večernjih šetnji.",
     amenities: ["Naturist beach", "Boat access", "Hiking"],
     amenitiesHr: ["Naturistička plaža", "Pristup brodom", "Pješačenje"],
-    relatedSlugs: ["baldarin", "bunculuka", "strasko"],
+    relatedSlugs: ["baldarin", "bunculuka", "strasko", "rapoca"],
     affiliateLabel: "Hotels on Rab",
     affiliateUrl: "https://www.booking.com/searchresults.html?ss=Rab+Island",
     imageGradient: "from-amber-400 via-orange-200 to-sky-300",
+    imageUrl: img.sunsetCoast,
+    imageCredit: credit("historic island beach mood"),
   },
   {
     id: "10",
@@ -296,10 +498,12 @@ export const places: Place[] = [
       "Straško odgovara putnicima koji žele infrastrukturu kampa plus FKK džep obale. Pag može biti vjetrovit (bura/maestral) — pratite prognozu. Noćni život u Novalji je blizu ako želite kontrast; FKK zona ostaje mirnija. Ljubimci obično dozvoljeni na odabranim parcelama.",
     amenities: ["Beach", "Camping", "Pool", "Pets", "Animation", "Shop"],
     amenitiesHr: ["Plaža", "Kamp", "Bazen", "Ljubimci", "Animacija", "Trgovina"],
-    relatedSlugs: ["kandarola", "bunculuka", "nugal"],
+    relatedSlugs: ["kandarola", "bunculuka", "metajna", "nugal"],
     affiliateLabel: "Book Straško",
     affiliateUrl: "https://www.booking.com/searchresults.html?ss=Camping+Stra%C5%A1ko+Novalja",
     imageGradient: "from-sky-400 via-stone-300 to-amber-200",
+    imageUrl: img.windCoast,
+    imageCredit: credit("Pag coast / holiday-park shore"),
   },
   {
     id: "11",
@@ -321,15 +525,17 @@ export const places: Place[] = [
     shortDescriptionHr:
       "Zapanjujuća šljunčana naturistička plaža između Makarske i Tučepa, uokvirena liticama Biokova.",
     guide:
-      "Nugal is a bucket-list Dalmatian naturist beach. Reach it by coastal walk or boat; paths can be steep and hot. No major facilities — pack everything. Early morning or late afternoon light is magical. Stay in Makarska or Tučepi.",
+      "Nugal is a bucket-list Dalmatian naturist beach. Reach it by coastal walk or boat; paths can be steep and hot midday. No major facilities — pack water, snacks and sun protection. Early morning or late afternoon light is magical. Base in Makarska or Tučepi.",
     guideHr:
-      "Nugal je bucket-list dalmatinska naturistička plaža. Dođite obalnom stazom ili brodom; staze mogu biti strme i vruće. Nema većih sadržaja — ponijete sve. Jutarnje ili kasnopodnevno svjetlo je magično. Smještaj u Makarskoj ili Tučepima.",
+      "Nugal je bucket-list dalmatinska naturistička plaža. Dođite obalnom stazom ili brodom; staze mogu biti strme i vruće usred dana. Nema većih sadržaja — ponijete vodu, grickalice i zaštitu od sunca. Jutarnje ili kasnopodnevno svjetlo je magično. Baza u Makarskoj ili Tučepima.",
     amenities: ["Naturist beach", "Hiking", "Scenic cliffs"],
     amenitiesHr: ["Naturistička plaža", "Pješačenje", "Slikovite litice"],
-    relatedSlugs: ["kasjuni", "sovlje", "solaris-beach"],
+    relatedSlugs: ["kasjuni", "baska-voda-fkk", "sovlje", "solaris-beach"],
     affiliateLabel: "Stay Makarska",
     affiliateUrl: "https://www.booking.com/searchresults.html?ss=Makarska",
     imageGradient: "from-blue-600 via-cyan-400 to-stone-400",
+    imageUrl: img.cliffBeach,
+    imageCredit: credit("cliff-framed Dalmatian beach"),
   },
   {
     id: "12",
@@ -356,10 +562,12 @@ export const places: Place[] = [
       "Kašjuni je praktičan ako ste bazirani u Splitu. Zapadni/dalji dio tradicionalno je slobodniji; očitajte publiku i držite poštovanje prema tekstilnim obiteljskim zonama. Lako taksijem ili autobusom iz centra; spojite s šetnjama po parku šume Marjan.",
     amenities: ["Beach", "Cafe nearby", "City access", "Pets"],
     amenitiesHr: ["Plaža", "Kafić u blizini", "Pristup gradu", "Ljubimci"],
-    relatedSlugs: ["nugal", "sovlje", "solaris-beach"],
+    relatedSlugs: ["nugal", "kava", "sovlje", "pakleni-zdrilca"],
     affiliateLabel: "Hotels in Split",
     affiliateUrl: "https://www.booking.com/searchresults.html?ss=Split",
     imageGradient: "from-orange-300 via-sky-400 to-blue-500",
+    imageUrl: img.cityBeach,
+    imageCredit: credit("city-adjacent Adriatic beach"),
   },
   {
     id: "13",
@@ -377,25 +585,27 @@ export const places: Place[] = [
     lng: 15.78,
     rating: 4.4,
     shortDescription:
-      "Quiet naturist pebble beach near Tribunj, good for day trips from Vodice or Šibenik.",
+      "Quiet naturist pebble beach near Tribunj — good day trips from Vodice or Šibenik.",
     shortDescriptionHr:
-      "Mirna naturistička šljunčana plaža kod Tribunja, dobra za dnevne izlete iz Vodica ili Šibenika.",
+      "Mirna naturistička šljunčana plaža kod Tribunja — dobri dnevni izleti iz Vodica ili Šibenika.",
     guide:
       "Sovlje is a low-key Dalmatian naturist stop with clearer water on calm days. Limited services — bring supplies. Ideal if you explore the Šibenik archipelago and want a naturist afternoon without a big resort.",
     guideHr:
       "Sovlje je opuštena dalmatinska naturistička točka s bistrom vodom po mirnom danu. Ograničeni servisi — ponijete zalihe. Idealno ako istražujete šibenski arhipelag i želite naturističko popodne bez velikog resorta.",
     amenities: ["Naturist beach", "Parking", "Pets"],
     amenitiesHr: ["Naturistička plaža", "Parking", "Ljubimci"],
-    relatedSlugs: ["solaris-beach", "nugal", "kasjuni"],
+    relatedSlugs: ["solaris-beach", "nugal", "kasjuni", "kava"],
     affiliateLabel: "Stay Vodice / Tribunj",
     affiliateUrl: "https://www.booking.com/searchresults.html?ss=Tribunj",
     imageGradient: "from-cyan-400 via-teal-300 to-yellow-100",
+    imageUrl: img.quietCove,
+    imageCredit: credit("quiet pebble cove"),
   },
   {
     id: "14",
     slug: "solaris-beach",
-    name: "Solaris area naturist coves",
-    nameHr: "Naturističke uvale područja Solaris",
+    name: "Solaris Šibenik naturist coves",
+    nameHr: "Naturističke uvale Solaris Šibenik",
     region: "dalmatia",
     type: "beach",
     dressCode: "clothing-optional",
@@ -407,19 +617,21 @@ export const places: Place[] = [
     lng: 15.88,
     rating: 4.2,
     shortDescription:
-      "Clothing-optional rocky coves near the Solaris resort zone south of Šibenik, handy for hotel guests.",
+      "Clothing-optional rocky coves near the Solaris resort zone south of Šibenik — handy for hotel guests.",
     shortDescriptionHr:
-      "Clothing-optional stjenovite uvale blizu zone resorta Solaris južno od Šibenika, praktične za hotelske goste.",
+      "Clothing-optional stjenovite uvale blizu zone resorta Solaris južno od Šibenika — praktične za hotelske goste.",
     guide:
-      "Use as a flexible day option if staying in the Šibenik–Solaris corridor. Confirm current local etiquette; some pockets are clothing-optional rather than strictly FKK. Pair with national parks Krka or Kornati for mixed itineraries.",
+      "Use as a flexible day option if staying in the Šibenik–Solaris corridor. Confirm current local etiquette; some pockets are clothing-optional rather than strictly FKK. Pair with national parks Krka or Kornati for mixed itineraries. Not the same as Camping Solaris in Poreč.",
     guideHr:
-      "Koristite kao fleksibilnu dnevnu opciju ako odsjedate u koridoru Šibenik–Solaris. Potvrdite aktualnu lokalnu etiketu; neki džepovi su clothing-optional, a ne strogi FKK. Spojite s NP Krka ili Kornatima za mješovite itinerere.",
+      "Koristite kao fleksibilnu dnevnu opciju ako odsjedate u koridoru Šibenik–Solaris. Potvrdite aktualnu lokalnu etiketu; neki džepovi su clothing-optional, a ne strogi FKK. Spojite s NP Krka ili Kornatima. Nije isto što i Kamp Solaris u Poreču.",
     amenities: ["Rocky beach", "Near resorts", "Snorkeling"],
     amenitiesHr: ["Stjenovita plaža", "Blizu resorta", "Snorkanje"],
-    relatedSlugs: ["sovlje", "nugal", "kasjuni"],
+    relatedSlugs: ["sovlje", "nugal", "kasjuni", "solaris-porec"],
     affiliateLabel: "Book Šibenik stay",
     affiliateUrl: "https://www.booking.com/searchresults.html?ss=Solaris+%C5%A0ibenik",
     imageGradient: "from-sky-500 via-indigo-300 to-amber-200",
+    imageUrl: img.dalmatia,
+    imageCredit: credit("Dalmatian resort-zone coastline"),
   },
   {
     id: "15",
@@ -446,10 +658,13 @@ export const places: Place[] = [
       "Sam Mon Perin je uglađeni obiteljski kamp; pitajte osoblje za obližnje slobodnije dijelove plaže i uvijek poštujte istaknuta pravila. Odlično ako želite visoku udobnost kampa uz opcionalne naturističke dnevne točke i istarska sela u unutrašnjosti.",
     amenities: ["Camping", "Pool", "Beach access", "Pets", "Restaurant", "Wellness"],
     amenitiesHr: ["Kamp", "Bazen", "Pristup plaži", "Ljubimci", "Restoran", "Wellness"],
-    relatedSlugs: ["valalta", "koversada", "ulika"],
+    relatedSlugs: ["valalta", "koversada", "ulika", "solaris-porec"],
     affiliateLabel: "Reserve Mon Perin",
     affiliateUrl: "https://www.booking.com/searchresults.html?ss=Camping+Mon+Perin+Bale",
     imageGradient: "from-yellow-300 via-lime-300 to-cyan-300",
+    imageUrl: img.resortPool,
+    imageCredit: credit("premium camp / pool resort vibe"),
+    officialUrl: "https://www.monperin.hr",
   },
   {
     id: "16",
@@ -471,15 +686,300 @@ export const places: Place[] = [
     shortDescriptionHr:
       "Lokalna pulska plaža s tradicionalno slobodnijim daljim dijelom popularnim među naturistički orijentiranim gostima.",
     guide:
-      "Handy urban-adjacent option when visiting Pula's amphitheatre and old town. Etiquette varies by section — observe before undressing. Better as a half-day swim than a destination resort. Pets on leash where allowed.",
+      "Handy urban-adjacent option when visiting Pula’s amphitheatre and old town. Etiquette varies by section — observe before undressing. Better as a half-day swim than a destination resort. Pets on leash where allowed.",
     guideHr:
       "Praktična urbana opcija uz posjet pulskoj Areni i starom gradu. Etiketa varira po dijelovima — promatrajte prije svlačenja. Bolje kao poludnevno kupanje nego destinacijski resort. Ljubimci na povodcu gdje je dozvoljeno.",
     amenities: ["Beach", "City access", "Parking", "Pets"],
     amenitiesHr: ["Plaža", "Pristup gradu", "Parking", "Ljubimci"],
-    relatedSlugs: ["kamenjak", "koversada", "ulika"],
+    relatedSlugs: ["kamenjak", "koversada", "ulika", "kazela"],
     affiliateLabel: "Stay in Pula",
     affiliateUrl: "https://www.booking.com/searchresults.html?ss=Pula",
     imageGradient: "from-rose-300 via-sky-300 to-cyan-400",
+    imageUrl: img.aerialBay,
+    imageCredit: credit("urban-adjacent Istrian bay"),
+  },
+  // ——— New places ———
+  {
+    id: "17",
+    slug: "solaris-porec",
+    name: "Naturist Camping Solaris Poreč",
+    nameHr: "Naturistički kamp Solaris Poreč",
+    region: "istria",
+    type: "camp",
+    dressCode: "naturist",
+    petsAllowed: true,
+    nearBeach: true,
+    location: "Poreč, Istria",
+    locationHr: "Poreč, Istra",
+    lat: 45.227,
+    lng: 13.594,
+    rating: 4.6,
+    shortDescription:
+      "Dedicated naturist camp on the Poreč riviera with pebble beach, mobile homes and a relaxed family atmosphere.",
+    shortDescriptionHr:
+      "Namjenski naturistički kamp na porečkoj rivijeri sa šljunčanom plažom, mobilnim kućicama i opuštenom obiteljskom atmosferom.",
+    guide:
+      "Camping Solaris (Poreč) is a full naturist camp — not to be confused with the Solaris resort zone near Šibenik. Expect organised pitches, beachfront swimming and solid sanitary standards. Poreč’s old town and Basilica of Euphrasius are a short drive. Book early for sea-view mobile homes in peak summer.",
+    guideHr:
+      "Kamp Solaris (Poreč) je potpuni naturistički kamp — ne miješati sa zonom resorta Solaris kod Šibenika. Očekujte uređene parcele, kupanje uz plažu i solidne sanitarije. Stari Poreč i Eufrazijeva bazilika su kratka vožnja. Rano rezervirajte mobilne kućice s pogledom na more u vrhuncu ljeta.",
+    amenities: [
+      "Beach",
+      "Camping",
+      "Mobile homes",
+      "Restaurant",
+      "Pets",
+      "Shop",
+      "Sanitary",
+    ],
+    amenitiesHr: [
+      "Plaža",
+      "Kamp",
+      "Mobilne kućice",
+      "Restoran",
+      "Ljubimci",
+      "Trgovina",
+      "Sanitarije",
+    ],
+    relatedSlugs: ["ulika", "koversada", "valalta", "mon-perin"],
+    affiliateLabel: "Book Solaris Poreč",
+    affiliateUrl: "https://www.booking.com/searchresults.html?ss=Camping+Solaris+Pore%C4%8D",
+    imageGradient: "from-cyan-400 via-sky-300 to-lime-200",
+    imageUrl: img.campShade,
+    imageCredit: credit("Poreč riviera camp / pebble shore"),
+    officialUrl: "https://www.campingsolaris.com",
+  },
+  {
+    id: "18",
+    slug: "kazela",
+    name: "Arena Kažela (FKK section)",
+    nameHr: "Arena Kažela (FKK zona)",
+    region: "istria",
+    type: "camp",
+    dressCode: "clothing-optional",
+    petsAllowed: true,
+    nearBeach: true,
+    location: "Medulin, Istria",
+    locationHr: "Medulin, Istra",
+    lat: 44.805,
+    lng: 13.935,
+    rating: 4.4,
+    shortDescription:
+      "Large Arena camps Medulin site with a noted FKK / freer beach section — check current zone maps on arrival.",
+    shortDescriptionHr:
+      "Veliki Arena camps lokalitet u Medulinu s poznatom FKK / slobodnijom zonom plaže — na dolasku provjerite aktualne karte zona.",
+    guide:
+      "Arena Kažela is a big holiday camp near Medulin; the FKK note refers to a designated freer shoreline section rather than the whole property being naturist. Always follow posted signs and staff guidance. Handy for Cape Kamenjak day trips and Pula sightseeing. Pets typically allowed on selected pitches.",
+    guideHr:
+      "Arena Kažela je veliki holiday kamp kod Medulina; FKK napomena odnosi se na označeni slobodniji dio obale, a ne na cijeli lokalitet kao naturistički. Uvijek slijedite istaknute znakove i upute osoblja. Praktično za izlete na rt Kamenjak i razgledavanje Pule. Ljubimci obično na odabranim parcelama.",
+    amenities: ["Beach", "Camping", "Pool", "Pets", "Animation", "Shop", "FKK section"],
+    amenitiesHr: [
+      "Plaža",
+      "Kamp",
+      "Bazen",
+      "Ljubimci",
+      "Animacija",
+      "Trgovina",
+      "FKK zona",
+    ],
+    relatedSlugs: ["kamenjak", "pula-hidrobaza", "koversada", "ulika"],
+    affiliateLabel: "Book Arena Kažela",
+    affiliateUrl: "https://www.booking.com/searchresults.html?ss=Arena+Ka%C5%BEela+Medulin",
+    imageGradient: "from-amber-300 via-sky-300 to-teal-300",
+    imageUrl: img.croatiaCoast,
+    imageCredit: credit("Medulin peninsula / large camp shore"),
+    officialUrl: "https://www.arenacamps.com/en/camps/arena-kazela",
+  },
+  {
+    id: "19",
+    slug: "pakleni-zdrilca",
+    name: "Pakleni Islands — Zdrilca",
+    nameHr: "Pakleni otoci — Ždrilca",
+    region: "dalmatia",
+    type: "beach",
+    dressCode: "clothing-optional",
+    petsAllowed: false,
+    nearBeach: true,
+    location: "Hvar / Pakleni islands",
+    locationHr: "Hvar / Pakleni otoci",
+    lat: 43.16,
+    lng: 16.42,
+    rating: 4.5,
+    shortDescription:
+      "Boat-day clothing-optional coves in the Pakleni archipelago off Hvar — crystal water, pine shade, minimal facilities.",
+    shortDescriptionHr:
+      "Clothing-optional uvale za brodske izlete u Paklenom arhipelagu kod Hvara — kristalno more, borova hladovina, minimalni sadržaji.",
+    guide:
+      "Ždrilca and neighbouring Pakleni coves are classic boat-day naturist/CO spots from Hvar town. Water taxis and organised tours stop nearby; facilities are sparse — bring water and cash for boat return. Respect private restaurant terraces that may be textile. Overnight on Hvar or a Pakleni camp if available.",
+    guideHr:
+      "Ždrilca i susjedne Paklene uvale klasične su brodske naturističke/CO točke iz grada Hvara. Vodeni taksiji i organizirani ture stanu u blizini; sadržaji su rijetki — ponijete vodu i gotovinu za povratak. Poštujte privatne terase restorana koje mogu biti tekstilne. Noćenje na Hvaru ili u paklenskom kampu ako je dostupan.",
+    amenities: ["Boat access", "Snorkeling", "Pine shade", "Crystal water"],
+    amenitiesHr: ["Pristup brodom", "Snorkanje", "Borova hladovina", "Kristalno more"],
+    relatedSlugs: ["kasjuni", "nugal", "kava", "sovlje"],
+    affiliateLabel: "Stay in Hvar",
+    affiliateUrl: "https://www.booking.com/searchresults.html?ss=Hvar",
+    imageGradient: "from-blue-400 via-cyan-200 to-emerald-200",
+    imageUrl: img.hvarIslands,
+    imageCredit: credit("Hvar / island archipelago day-boat vibe"),
+  },
+  {
+    id: "20",
+    slug: "baska-voda-fkk",
+    name: "Baška Voda FKK Beach",
+    nameHr: "FKK plaža Baška Voda",
+    region: "dalmatia",
+    type: "beach",
+    dressCode: "naturist",
+    petsAllowed: false,
+    nearBeach: true,
+    location: "Baška Voda, Makarska Riviera",
+    locationHr: "Baška Voda, Makarska rivijera",
+    lat: 43.357,
+    lng: 16.95,
+    rating: 4.3,
+    shortDescription:
+      "Small marked naturist pebble stretch on the Makarska Riviera near Baška Voda — convenient for riviera hotel guests.",
+    shortDescriptionHr:
+      "Mali označeni naturistički šljunčani dio na Makarskoj rivijeri kod Baške Vode — praktičan za hotelske goste rivijere.",
+    guide:
+      "Baška Voda’s FKK pocket is a short coastal hop from the main promenade. Expect a compact pebble strip rather than a full resort. Respect signs and neighbouring textile beaches. Combine with Biokovo views and evenings in Baška Voda or nearby Makarska. Nugal is a scenic alternative a bit further along the coast.",
+    guideHr:
+      "FKK džep Baške Vode kratki je obalni skok od glavne promenade. Očekujte kompaktnu šljunčanu traku, ne puni resort. Poštujte znakove i susjedne tekstilne plaže. Spojite s pogledima na Biokovo i večerima u Baškoj Vodi ili obližnjoj Makarskoj. Nugal je slikovita alternativa malo dalje uz obalu.",
+    amenities: ["Naturist beach", "Pebble", "Promenade nearby"],
+    amenitiesHr: ["Naturistička plaža", "Šljunak", "Promenada u blizini"],
+    relatedSlugs: ["nugal", "kasjuni", "sovlje", "solaris-beach"],
+    affiliateLabel: "Stay Baška Voda",
+    affiliateUrl: "https://www.booking.com/searchresults.html?ss=Ba%C5%A1ka+Voda",
+    imageGradient: "from-sky-400 via-blue-300 to-stone-200",
+    imageUrl: img.makarska,
+    imageCredit: credit("Makarska Riviera pebble shore"),
+  },
+  {
+    id: "21",
+    slug: "metajna",
+    name: "Metajna FKK Beach (Pag)",
+    nameHr: "FKK plaža Metajna (Pag)",
+    region: "kvarner",
+    type: "beach",
+    dressCode: "naturist",
+    petsAllowed: true,
+    nearBeach: true,
+    location: "Metajna, Pag",
+    locationHr: "Metajna, Pag",
+    lat: 44.52,
+    lng: 14.97,
+    rating: 4.2,
+    shortDescription:
+      "Quiet naturist beach near Metajna on Pag — open views, fewer crowds than Novalja, wind-aware swimming.",
+    shortDescriptionHr:
+      "Mirna naturistička plaža kod Metajne na Pagu — otvoreni pogledi, manje gužve nego u Novalji, kupanje uz svijest o vjetru.",
+    guide:
+      "Metajna’s FKK stretch appeals if you want Pag without Zrće party noise. The landscape is open and rocky-pebble; bura and maestral can change swimming comfort quickly. Bring shade and water. Base in Metajna, Novalja or a Pag camp such as Straško for fuller amenities.",
+    guideHr:
+      "FKK dio Metajne privlači ako želite Pag bez Zrće gužve. Krajolik je otvoren i stjenovito-šljunčan; bura i maestral brzo mijenjaju ugodu kupanja. Ponijete hladovinu i vodu. Baza u Metajni, Novalji ili kampu na Pagu kao Straško zbog potpunijih sadržaja.",
+    amenities: ["Naturist beach", "Parking", "Pets", "Quiet"],
+    amenitiesHr: ["Naturistička plaža", "Parking", "Ljubimci", "Mir"],
+    relatedSlugs: ["strasko", "kandarola", "baldarin", "bunculuka"],
+    affiliateLabel: "Stay near Metajna",
+    affiliateUrl: "https://www.booking.com/searchresults.html?ss=Metajna+Pag",
+    imageGradient: "from-stone-300 via-sky-400 to-cyan-200",
+    imageUrl: img.windCoast,
+    imageCredit: credit("open Pag coastline"),
+  },
+  {
+    id: "22",
+    slug: "kava",
+    name: "Beach Kava (Trogir)",
+    nameHr: "Plaža Kava (Trogir)",
+    region: "dalmatia",
+    type: "beach",
+    dressCode: "clothing-optional",
+    petsAllowed: true,
+    nearBeach: true,
+    location: "Trogir area",
+    locationHr: "Područje Trogira",
+    lat: 43.49,
+    lng: 16.28,
+    rating: 4.2,
+    shortDescription:
+      "Popular clothing-optional / freer beach near Trogir — rocky entry, local summer crowd, easy day trip from Split airport corridor.",
+    shortDescriptionHr:
+      "Popularna clothing-optional / slobodnija plaža kod Trogira — stjenoviti ulaz, lokalna ljetna publika, lak dnevni izlet iz koridora splitskog aerodroma.",
+    guide:
+      "Kava is a known freer beach in the Trogir hinterland coast. Sections mix textile and clothing-optional etiquette — observe before undressing. Limited shade and services. Pair with UNESCO Trogir old town evenings. Pets on leash where tolerated.",
+    guideHr:
+      "Kava je poznata slobodnija plaža na trogirskoj obali. Dijelovi miješaju tekstilnu i clothing-optional etiketu — promatrajte prije svlačenja. Malo hladovine i usluga. Spojite s večerima u UNESCO starom Trogirom. Ljubimci na povodcu gdje se tolerira.",
+    amenities: ["Beach", "Parking", "Pets", "Near Trogir"],
+    amenitiesHr: ["Plaža", "Parking", "Ljubimci", "Blizu Trogira"],
+    relatedSlugs: ["kasjuni", "sovlje", "nugal", "pakleni-zdrilca"],
+    affiliateLabel: "Stay in Trogir",
+    affiliateUrl: "https://www.booking.com/searchresults.html?ss=Trogir",
+    imageGradient: "from-teal-400 via-cyan-300 to-amber-200",
+    imageUrl: img.blueLagoon,
+    imageCredit: credit("Trogir-area rocky beach"),
+  },
+  {
+    id: "23",
+    slug: "rapoca",
+    name: "Camping Rapoća",
+    nameHr: "Kamp Rapoća",
+    region: "kvarner",
+    type: "camp",
+    dressCode: "naturist",
+    petsAllowed: true,
+    nearBeach: true,
+    location: "Lopar, Rab",
+    locationHr: "Lopar, Rab",
+    lat: 44.83,
+    lng: 14.73,
+    rating: 4.3,
+    shortDescription:
+      "Naturist-friendly camp near Lopar on Rab with sandy-pebble shores and a quieter alternative to town beaches.",
+    shortDescriptionHr:
+      "Naturistički orijentiran kamp kod Lopara na Rabu s pjeskovito-šljunčanim obalama i mirnijom alternativom gradskim plažama.",
+    guide:
+      "Rapoća suits Rab visitors who want camping near Lopar’s famously sandy stretches while keeping a freer beach option. Confirm which zones are naturist on arrival. Combine with a boat day to Kandarola (Sahara) and evenings in Rab town. Pets often welcome — verify current rules.",
+    guideHr:
+      "Rapoća odgovara gostima Raba koji žele kampiranje blizu poznatih pjeskovitih dijelova Lopara uz slobodniju opciju plaže. Na dolasku potvrdite koje zone su naturističke. Spojite s brodskim danom do Kandarole (Sahara) i večerima u gradu Rabu. Ljubimci često dobrodošli — provjerite aktualna pravila.",
+    amenities: ["Camping", "Beach", "Pets", "Sanitary", "Shop"],
+    amenitiesHr: ["Kamp", "Plaža", "Ljubimci", "Sanitarije", "Trgovina"],
+    relatedSlugs: ["kandarola", "baldarin", "bunculuka", "strasko"],
+    affiliateLabel: "Book Rapoća",
+    affiliateUrl: "https://www.booking.com/searchresults.html?ss=Camping+Rapo%C4%87a+Rab",
+    imageGradient: "from-lime-400 via-teal-300 to-sky-200",
+    imageUrl: img.campingTent,
+    imageCredit: credit("Rab / Lopar camping shore"),
+  },
+  {
+    id: "24",
+    slug: "stara-baska",
+    name: "Stara Baška Coves",
+    nameHr: "Uvale Stare Baške",
+    region: "kvarner",
+    type: "beach",
+    dressCode: "clothing-optional",
+    petsAllowed: true,
+    nearBeach: true,
+    location: "Stara Baška, Krk",
+    locationHr: "Stara Baška, Krk",
+    lat: 44.955,
+    lng: 14.68,
+    rating: 4.4,
+    shortDescription:
+      "Wild rocky coves near Stara Baška on Krk — quieter clothing-optional pockets, dramatic karst scenery.",
+    shortDescriptionHr:
+      "Divlje stjenovite uvale kod Stare Baške na Krku — mirniji clothing-optional džepovi, dramatičan krški pejzaž.",
+    guide:
+      "Stara Baška’s coastline is rugged and scenic. Some coves away from the village beach are used as clothing-optional spots — always read the crowd and keep distance from family textile areas. Road access is winding; parking fills on weekends. Pair with Bunculuka or Konobe if you want a marked naturist option the same trip.",
+    guideHr:
+      "Obala Stare Baške hrapava je i slikovita. Neke uvale dalje od seoske plaže koriste se kao clothing-optional — uvijek očitajte publiku i držite distancu od obiteljskih tekstilnih zona. Pristup cestom je vijugav; parking se puni vikendom. Spojite s Bunculukom ili Konobama ako želite označenu naturističku opciju na istom putovanju.",
+    amenities: ["Wild beach", "Hiking", "Parking", "Pets", "Scenic"],
+    amenitiesHr: ["Divlja plaža", "Pješačenje", "Parking", "Ljubimci", "Slikovito"],
+    relatedSlugs: ["bunculuka", "konobe", "glavotok", "baldarin"],
+    affiliateLabel: "Stay Stara Baška / Krk",
+    affiliateUrl: "https://www.booking.com/searchresults.html?ss=Stara+Ba%C5%A1ka",
+    imageGradient: "from-indigo-400 via-cyan-300 to-stone-300",
+    imageUrl: img.pebbles,
+    imageCredit: credit("wild Krk rocky coves"),
   },
 ];
 

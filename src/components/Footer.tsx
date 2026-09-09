@@ -22,6 +22,9 @@ export function Footer() {
           <Link href="/community" className="hover:text-sky-800">
             {dict.nav.community}
           </Link>
+          <Link href="/partners" className="hover:text-sky-800">
+            {dict.nav.partners}
+          </Link>
         </div>
         <p className="text-xs text-slate-500">{dict.footer.made}</p>
       </div>

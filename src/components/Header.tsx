@@ -14,6 +14,7 @@ export function Header() {
     { href: "/assistant", label: dict.nav.assistant },
     { href: "/premium", label: dict.nav.premium },
     { href: "/community", label: dict.nav.community },
+    { href: "/partners", label: dict.nav.partners },
   ];
 
   return (

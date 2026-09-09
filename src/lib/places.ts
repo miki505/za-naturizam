@@ -1,8 +1,25 @@
 import { places } from "@/data/places";
 import type { DressCode, Place, PlaceType, Region } from "@/types";
 
+/** Featured first (by featuredRank ascending), then by rating descending. */
+export function sortPlaces(list: Place[]): Place[] {
+  return list.slice().sort((a, b) => {
+    const aFeat = a.featured ? 1 : 0;
+    const bFeat = b.featured ? 1 : 0;
+    if (aFeat !== bFeat) return bFeat - aFeat;
+    if (a.featured && b.featured) {
+      return (a.featuredRank ?? 999) - (b.featuredRank ?? 999);
+    }
+    return b.rating - a.rating;
+  });
+}
+
 export function getAllPlaces(): Place[] {
-  return places;
+  return sortPlaces(places);
+}
+
+export function getFeaturedPlaces(): Place[] {
+  return sortPlaces(places.filter((p) => p.featured));
 }
 
 export function getPlaceBySlug(slug: string): Place | undefined {
@@ -26,7 +43,7 @@ export interface PlaceFilters {
 
 export function filterPlaces(filters: PlaceFilters): Place[] {
   const q = filters.q?.trim().toLowerCase() ?? "";
-  return places.filter((p) => {
+  const filtered = places.filter((p) => {
     if (filters.region && filters.region !== "all" && p.region !== filters.region) return false;
     if (filters.type && filters.type !== "all" && p.type !== filters.type) return false;
     if (filters.dressCode && filters.dressCode !== "all" && p.dressCode !== filters.dressCode)
@@ -39,6 +56,7 @@ export function filterPlaces(filters: PlaceFilters): Place[] {
     }
     return true;
   });
+  return sortPlaces(filtered);
 }
 
 export function mapsUrl(place: Place): string {

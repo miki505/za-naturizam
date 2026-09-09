@@ -3,16 +3,15 @@
 import Link from "next/link";
 import { PlaceCard } from "@/components/PlaceCard";
 import { useLocale } from "@/components/LocaleProvider";
-import { getAllPlaces } from "@/lib/places";
+import { getAllPlaces, getFeaturedPlaces } from "@/lib/places";
 
 const PLACE_PILLS = ["Valalta", "Koversada", "Bunculuka"] as const;
 
 export default function HomePage() {
-  const { dict } = useLocale();
-  const featured = getAllPlaces()
-    .slice()
-    .sort((a, b) => b.rating - a.rating)
-    .slice(0, 3);
+  const { locale, dict } = useLocale();
+  const partnerFeatured = getFeaturedPlaces();
+  const featured =
+    partnerFeatured.length > 0 ? partnerFeatured : getAllPlaces().slice(0, 3);
 
   const trustItems = [
     dict.trust.places,
@@ -44,6 +43,17 @@ export default function HomePage() {
       accent: "from-teal-500 to-emerald-400",
     },
   ];
+
+  const sponsoredCards = partnerFeatured.flatMap((place) =>
+    (place.sponsoredOffers ?? []).map((offer) => ({
+      place,
+      offer,
+      title: locale === "hr" ? offer.titleHr : offer.title,
+      description: locale === "hr" ? offer.descriptionHr : offer.description,
+      cta: locale === "hr" ? offer.ctaLabelHr : offer.ctaLabel,
+      placeName: locale === "hr" ? place.nameHr : place.name,
+    })),
+  );
 
   return (
     <div>
@@ -223,6 +233,62 @@ export default function HomePage() {
           ))}
         </div>
       </section>
+
+      {sponsoredCards.length > 0 && (
+        <section className="mx-auto max-w-6xl px-4 pb-16">
+          <div className="mb-8 flex flex-wrap items-end justify-between gap-3">
+            <div className="max-w-2xl">
+              <p className="mb-2 text-xs font-semibold uppercase tracking-[0.14em] text-amber-700/90">
+                {dict.featured.offersEyebrow}
+              </p>
+              <h2 className="text-2xl font-bold tracking-tight text-sky-950 sm:text-3xl">
+                {dict.featured.offersTitle}
+              </h2>
+              <p className="mt-2 text-sm leading-relaxed text-slate-600">
+                {dict.featured.offersSubtitle}
+              </p>
+            </div>
+            <Link
+              href="/partners"
+              className="shrink-0 text-sm font-semibold text-sky-700 transition hover:text-sky-900 hover:underline"
+            >
+              {dict.nav.partners} →
+            </Link>
+          </div>
+          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {sponsoredCards.map((card) => (
+              <article
+                key={`${card.place.id}-${card.offer.title}`}
+                className="flex flex-col rounded-2xl border border-amber-100 bg-gradient-to-br from-amber-50/90 via-white to-orange-50/50 p-5 shadow-sm"
+              >
+                <div className="flex items-center justify-between gap-2">
+                  <span className="rounded-full bg-amber-400/90 px-2.5 py-0.5 text-[11px] font-bold text-amber-950">
+                    {dict.featured.partnerBadge}
+                  </span>
+                  <Link
+                    href={`/places/${card.place.slug}`}
+                    className="truncate text-xs font-semibold text-sky-700 hover:underline"
+                  >
+                    {card.placeName}
+                  </Link>
+                </div>
+                <h3 className="mt-3 text-base font-semibold text-sky-950">{card.title}</h3>
+                <p className="mt-2 flex-1 text-sm leading-relaxed text-slate-600">
+                  {card.description}
+                </p>
+                <a
+                  href={card.offer.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-4 inline-flex rounded-full bg-amber-500 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-amber-600"
+                >
+                  {card.cta}
+                </a>
+              </article>
+            ))}
+          </div>
+        </section>
+      )}
 
       <section className="px-4 pb-20">
         <div className="relative mx-auto max-w-6xl overflow-hidden rounded-[2rem] border border-sky-100 bg-gradient-to-br from-sky-600 via-sky-500 to-cyan-500 px-6 py-10 text-center shadow-lg shadow-sky-200/50 sm:px-10 sm:py-12">

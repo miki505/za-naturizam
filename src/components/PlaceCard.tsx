@@ -9,6 +9,8 @@ export function PlaceCard({ place }: { place: Place }) {
   const name = locale === "hr" ? place.nameHr : place.name;
   const location = locale === "hr" ? place.locationHr : place.location;
   const desc = locale === "hr" ? place.shortDescriptionHr : place.shortDescription;
+  const featuredLabel =
+    place.featuredLabel === "Partner" ? dict.featured.partnerBadge : dict.featured.badge;
 
   return (
     <Link
@@ -16,12 +18,26 @@ export function PlaceCard({ place }: { place: Place }) {
       className="group flex flex-col overflow-hidden rounded-2xl border border-sky-100/90 bg-white shadow-sm transition duration-200 hover:-translate-y-1 hover:border-sky-200 hover:shadow-lg hover:shadow-sky-100/80"
     >
       <div
-        className={`relative h-40 bg-gradient-to-br ${place.imageGradient}`}
-        aria-hidden
+        className={`relative h-40 overflow-hidden bg-gradient-to-br ${place.imageGradient}`}
+        aria-hidden={!place.imageUrl}
       >
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(255,255,255,0.4),transparent_50%)]" />
-        <div className="absolute inset-0 opacity-0 transition duration-200 group-hover:opacity-100 bg-gradient-to-t from-sky-950/20 to-transparent" />
+        {place.imageUrl ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={place.imageUrl}
+            alt=""
+            className="absolute inset-0 h-full w-full object-cover transition duration-300 group-hover:scale-[1.03]"
+            loading="lazy"
+          />
+        ) : null}
+        <div className="absolute inset-0 bg-gradient-to-t from-sky-950/35 via-sky-950/5 to-transparent" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(255,255,255,0.25),transparent_50%)]" />
         <div className="absolute bottom-3 left-3 flex flex-wrap gap-1.5">
+          {place.featured && (
+            <span className="rounded-full border border-amber-300/80 bg-amber-400/95 px-2.5 py-0.5 text-[11px] font-bold text-amber-950 shadow-sm backdrop-blur-sm">
+              {featuredLabel}
+            </span>
+          )}
           <span className="rounded-full border border-white/50 bg-white/95 px-2.5 py-0.5 text-[11px] font-semibold text-sky-900 shadow-sm backdrop-blur-sm">
             {dict.places.regions[place.region]}
           </span>

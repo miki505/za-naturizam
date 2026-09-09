@@ -24,6 +24,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title: `${place.nameHr} · Za Naturizam`,
       description: place.shortDescription,
+      ...(place.imageUrl ? { images: [{ url: place.imageUrl }] } : {}),
     },
   };
 }
@@ -39,32 +40,60 @@ export default async function PlaceDetailPage({ params }: Props) {
       <div
         className={`relative mb-8 h-52 overflow-hidden rounded-[2rem] bg-gradient-to-br ${place.imageGradient} shadow-lg shadow-sky-100/60 sm:h-64`}
       >
+        {place.imageUrl ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={place.imageUrl}
+            alt=""
+            className="absolute inset-0 h-full w-full object-cover"
+          />
+        ) : null}
         <div
           aria-hidden
-          className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(255,255,255,0.35),transparent_50%),radial-gradient(circle_at_80%_80%,rgba(15,23,42,0.12),transparent_45%)]"
+          className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(255,255,255,0.25),transparent_50%),linear-gradient(to_top,rgba(15,23,42,0.35),transparent_55%)]"
         />
         <div
           aria-hidden
           className="absolute inset-4 rounded-[1.4rem] border border-white/35"
         />
+        {place.featured && (
+          <span className="absolute left-6 top-6 rounded-full border border-amber-300/90 bg-amber-400/95 px-3 py-1 text-xs font-bold text-amber-950 shadow-sm">
+            ★ Partner
+          </span>
+        )}
       </div>
       <PlaceDetailClient place={place} mapHref={mapsUrl(place)} />
       <div className="mt-8 grid gap-4 lg:grid-cols-[1fr_280px]">
         <div className="space-y-4">
           <AffiliateCTA place={place} />
-          <a
-            href={mapsUrl(place)}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex rounded-full border border-sky-200 bg-white px-4 py-2.5 text-sm font-semibold text-sky-800 shadow-sm transition hover:border-sky-300 hover:bg-sky-50"
-          >
-            Google Maps →
-          </a>
+          <div className="flex flex-wrap gap-2">
+            <a
+              href={mapsUrl(place)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex rounded-full border border-sky-200 bg-white px-4 py-2.5 text-sm font-semibold text-sky-800 shadow-sm transition hover:border-sky-300 hover:bg-sky-50"
+            >
+              Google Maps →
+            </a>
+            {place.officialUrl && (
+              <a
+                href={place.officialUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex rounded-full border border-teal-200 bg-teal-50 px-4 py-2.5 text-sm font-semibold text-teal-900 shadow-sm transition hover:border-teal-300 hover:bg-teal-100"
+              >
+                Official site →
+              </a>
+            )}
+          </div>
         </div>
         <div className="rounded-2xl border border-sky-100 bg-white/85 p-5 text-sm text-slate-600 shadow-sm">
           <p>
             <span className="font-semibold text-sky-900">GPS:</span> {place.lat}, {place.lng}
           </p>
+          {place.imageCredit && (
+            <p className="mt-3 text-xs leading-relaxed text-slate-400">{place.imageCredit}</p>
+          )}
           <p className="mt-3">
             <Link
               href="/assistant"

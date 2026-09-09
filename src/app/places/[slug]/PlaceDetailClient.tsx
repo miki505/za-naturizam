@@ -9,11 +9,18 @@ export function PlaceDetailClient({ place, mapHref }: { place: Place; mapHref: s
   const location = locale === "hr" ? place.locationHr : place.location;
   const guide = locale === "hr" ? place.guideHr : place.guide;
   const amenities = locale === "hr" ? place.amenitiesHr : place.amenities;
+  const featuredLabel =
+    place.featuredLabel === "Partner" ? dict.featured.partnerBadge : dict.featured.badge;
 
   return (
     <div className="space-y-8">
       <div>
         <div className="flex flex-wrap items-center gap-2">
+          {place.featured && (
+            <span className="rounded-full border border-amber-300 bg-amber-400/90 px-2.5 py-0.5 text-xs font-bold text-amber-950">
+              {featuredLabel}
+            </span>
+          )}
           <span className="rounded-full border border-sky-100 bg-sky-50 px-2.5 py-0.5 text-xs font-semibold text-sky-900">
             {dict.places.regions[place.region]}
           </span>
@@ -59,7 +66,22 @@ export function PlaceDetailClient({ place, mapHref }: { place: Place; mapHref: s
           >
             {dict.detail.map}
           </a>
+          {place.officialUrl && (
+            <a
+              href={place.officialUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-full border border-teal-100 bg-teal-50 px-2.5 py-1 font-medium text-teal-800 transition hover:border-teal-200 hover:bg-teal-100"
+            >
+              {dict.detail.officialSite} →
+            </a>
+          )}
         </div>
+        {place.imageCredit && (
+          <p className="mt-3 text-[11px] text-slate-400">
+            {dict.detail.imageCredit}: {place.imageCredit}
+          </p>
+        )}
       </div>
 
       <section className="rounded-2xl border border-sky-100/90 bg-white/80 p-5 shadow-sm sm:p-6">
@@ -68,6 +90,43 @@ export function PlaceDetailClient({ place, mapHref }: { place: Place; mapHref: s
         </p>
         <p className="max-w-3xl text-[15px] leading-relaxed text-slate-700">{guide}</p>
       </section>
+
+      {place.sponsoredOffers && place.sponsoredOffers.length > 0 && (
+        <section className="rounded-2xl border border-amber-200/80 bg-gradient-to-br from-amber-50 to-orange-50/80 p-5 shadow-sm sm:p-6">
+          <p className="mb-1 text-xs font-semibold uppercase tracking-[0.12em] text-amber-800">
+            {dict.featured.sponsoredLabel}
+          </p>
+          <h2 className="text-lg font-semibold tracking-tight text-sky-950">
+            {dict.detail.sponsoredOffers}
+          </h2>
+          <ul className="mt-4 space-y-3">
+            {place.sponsoredOffers.map((offer) => {
+              const title = locale === "hr" ? offer.titleHr : offer.title;
+              const description = locale === "hr" ? offer.descriptionHr : offer.description;
+              const cta = locale === "hr" ? offer.ctaLabelHr : offer.ctaLabel;
+              return (
+                <li
+                  key={offer.url + title}
+                  className="flex flex-col gap-2 rounded-xl border border-amber-100 bg-white/90 p-4 sm:flex-row sm:items-center sm:justify-between"
+                >
+                  <div>
+                    <p className="font-semibold text-sky-950">{title}</p>
+                    <p className="mt-1 text-sm text-slate-600">{description}</p>
+                  </div>
+                  <a
+                    href={offer.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex shrink-0 rounded-full bg-amber-500 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-amber-600"
+                  >
+                    {cta}
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      )}
 
       <section>
         <h2 className="text-lg font-semibold tracking-tight text-sky-950">{dict.detail.amenities}</h2>
